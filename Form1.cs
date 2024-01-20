@@ -12,9 +12,18 @@ namespace WorkHellperIRG
 {
 	public partial class Form1 : Form
 	{
-		public Form1()
+		public Form1(string userName)
 		{
 			InitializeComponent();
+			label15.Text = userName;
 		}
+
+		private void buttonEnter(object sender, EventArgs e)
+		{
+			LoginForm dlg = new LoginForm();
+			dlg.Show(this);
+		}
+
+		
 	}
 }
