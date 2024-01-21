@@ -259,8 +259,9 @@ namespace WorkHellperIRG
             this.DataEnd});
 			this.listView1.FullRowSelect = true;
 			this.listView1.HideSelection = false;
-			this.listView1.Location = new System.Drawing.Point(12, 79);
+			this.listView1.Location = new System.Drawing.Point(15, 79);
 			this.listView1.Name = "listView1";
+			this.listView1.ShowItemToolTips = true;
 			this.listView1.Size = new System.Drawing.Size(530, 325);
 			this.listView1.TabIndex = 11;
 			this.listView1.UseCompatibleStateImageBehavior = false;
@@ -273,7 +274,7 @@ namespace WorkHellperIRG
 			// name
 			// 
 			this.name.Text = "Name";
-			this.name.Width = 291;
+			this.name.Width = 353;
 			// 
 			// DataEnd
 			// 
@@ -324,14 +325,13 @@ namespace WorkHellperIRG
 		private System.Windows.Forms.Label label13;
 		private System.Windows.Forms.Label label12;
 		private System.Windows.Forms.Label label14;
-		public System.Windows.Forms.Label label15;
+		private System.Windows.Forms.Label label15;
 		private System.Windows.Forms.Button button2;
 		private System.Windows.Forms.ListView listView1;
 		private System.Windows.Forms.ColumnHeader Id;
 		private System.Windows.Forms.ColumnHeader name;
 		private System.Windows.Forms.ColumnHeader DataEnd;
 	}
-	//public Label Label15 { get { return this.Label15.Text; } set { this.Label15.Text = value; } }
 
 	
 }

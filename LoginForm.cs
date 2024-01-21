@@ -26,6 +26,7 @@ namespace WorkHellperIRG
 		string emailGoogle;
 		string passwordGoogle;
 		public string resultUser;
+		public string resultUserId;
 
 		public static LoginForm Instance;
 
@@ -68,6 +69,7 @@ namespace WorkHellperIRG
 
 			User jsonUser = JsonConvert.DeserializeObject<User>(result);
 			resultUser = jsonUser.Name;
+			resultUserId = jsonUser.Id;
 		}
 
 		public void buttonEnterGoogle(object sender, EventArgs e)

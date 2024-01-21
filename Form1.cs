@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Management.Instrumentation;
@@ -38,10 +39,28 @@ namespace WorkHellperIRG
 		{
 			string emailIS = "Shchedlovskiy@inventive.ru"; // LoginForm.Instance.emailIS;
 			string passwordIS = "Nw9e5E3DySm"; // LoginForm.Instance.passwordIS;
-			string idUser = "5273";
+			string idUser = "5273"; // LoginForm.Instance.resultUserId;
 			string urlISTasks = $"https://help.inventive.ru/api/task?fields=Id,Name,Deadline&ExecutorIds={idUser}&StatusIDs=31,95";
-
+			//label15.Text = LoginForm.Instance.resultUser;
 			TasksToTable(ConnectAndPushUrl(emailIS, passwordIS, urlISTasks));
+
+			
+			foreach (ListViewItem item in listView1.Items)
+			{
+				if (item.SubItems[2] != null && item.SubItems[2].Text != "")
+				{
+					string tempDateTime = item.SubItems[2].Text;
+					DateTime dateTimeEnd = DateTime.Parse(tempDateTime);
+					if (dateTimeEnd.Subtract(DateTime.Now).TotalMinutes < 30.0)
+					{
+						item.BackColor = Color.Red;
+					}
+					else if (dateTimeEnd.Subtract(DateTime.Now).TotalMinutes < 1440)
+					{
+						item.BackColor = Color.Orange;
+					}
+				}
+			}
 		}
 
 		
@@ -85,8 +104,18 @@ namespace WorkHellperIRG
 			}
 			foreach (Task item in task)
 			{
-				ListViewItem item2 = new ListViewItem(new string[] { item.Id.ToString(), item.Name, item.Deadline});
-				listView1.Items.Add(item2);
+				if (item.Deadline != null && item.Deadline.ToString() != "")
+				{
+					string temp = item.Deadline.ToString();
+					string dateEnd = temp.Replace("T", " ");
+					ListViewItem item2 = new ListViewItem(new string[] { item.Id.ToString(), item.Name, dateEnd });
+					listView1.Items.Add(item2);
+				}
+				else
+				{
+					ListViewItem item2 = new ListViewItem(new string[] { item.Id.ToString(), item.Name, item.Deadline });
+					listView1.Items.Add(item2);
+				}
 			}
 		}
 
