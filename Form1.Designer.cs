@@ -49,6 +49,7 @@ namespace WorkHellperIRG
 			this.listView1 = new System.Windows.Forms.ListView();
 			this.Id = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.DataEnd = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.panel1.SuspendLayout();
 			this.panel3.SuspendLayout();
 			this.panel2.SuspendLayout();
@@ -76,9 +77,9 @@ namespace WorkHellperIRG
 			this.panel1.Controls.Add(this.label3);
 			this.panel1.Controls.Add(this.label2);
 			this.panel1.Controls.Add(this.label1);
-			this.panel1.Location = new System.Drawing.Point(376, 79);
+			this.panel1.Location = new System.Drawing.Point(548, 79);
 			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(397, 107);
+			this.panel1.Size = new System.Drawing.Size(225, 107);
 			this.panel1.TabIndex = 5;
 			// 
 			// label4
@@ -124,9 +125,9 @@ namespace WorkHellperIRG
 			this.panel3.Controls.Add(this.label11);
 			this.panel3.Controls.Add(this.label10);
 			this.panel3.Controls.Add(this.label9);
-			this.panel3.Location = new System.Drawing.Point(376, 305);
+			this.panel3.Location = new System.Drawing.Point(548, 305);
 			this.panel3.Name = "panel3";
-			this.panel3.Size = new System.Drawing.Size(397, 99);
+			this.panel3.Size = new System.Drawing.Size(225, 99);
 			this.panel3.TabIndex = 7;
 			// 
 			// label13
@@ -180,9 +181,9 @@ namespace WorkHellperIRG
 			this.panel2.Controls.Add(this.label6);
 			this.panel2.Controls.Add(this.label7);
 			this.panel2.Controls.Add(this.label8);
-			this.panel2.Location = new System.Drawing.Point(376, 192);
+			this.panel2.Location = new System.Drawing.Point(548, 192);
 			this.panel2.Name = "panel2";
-			this.panel2.Size = new System.Drawing.Size(397, 107);
+			this.panel2.Size = new System.Drawing.Size(225, 107);
 			this.panel2.TabIndex = 6;
 			// 
 			// label5
@@ -254,12 +255,13 @@ namespace WorkHellperIRG
 			this.listView1.AllowColumnReorder = true;
 			this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.Id,
-            this.name});
+            this.name,
+            this.DataEnd});
 			this.listView1.FullRowSelect = true;
 			this.listView1.HideSelection = false;
 			this.listView1.Location = new System.Drawing.Point(12, 79);
 			this.listView1.Name = "listView1";
-			this.listView1.Size = new System.Drawing.Size(358, 325);
+			this.listView1.Size = new System.Drawing.Size(530, 325);
 			this.listView1.TabIndex = 11;
 			this.listView1.UseCompatibleStateImageBehavior = false;
 			this.listView1.View = System.Windows.Forms.View.Details;
@@ -272,6 +274,11 @@ namespace WorkHellperIRG
 			// 
 			this.name.Text = "Name";
 			this.name.Width = 291;
+			// 
+			// DataEnd
+			// 
+			this.DataEnd.Text = "DataEnd";
+			this.DataEnd.Width = 107;
 			// 
 			// Form1
 			// 
@@ -322,6 +329,7 @@ namespace WorkHellperIRG
 		private System.Windows.Forms.ListView listView1;
 		private System.Windows.Forms.ColumnHeader Id;
 		private System.Windows.Forms.ColumnHeader name;
+		private System.Windows.Forms.ColumnHeader DataEnd;
 	}
 	//public Label Label15 { get { return this.Label15.Text; } set { this.Label15.Text = value; } }
 

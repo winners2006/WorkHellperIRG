@@ -21,8 +21,6 @@ namespace WorkHellperIRG
 	public partial class Form1 : Form
 	{
 		public static Form1 Instance;
-		//List<string> ISListTasks = new List<string>();
-		
 
 		public Form1()
 		{
@@ -40,16 +38,13 @@ namespace WorkHellperIRG
 		{
 			string emailIS = "Shchedlovskiy@inventive.ru"; // LoginForm.Instance.emailIS;
 			string passwordIS = "Nw9e5E3DySm"; // LoginForm.Instance.passwordIS;
-			string urlISTasks = "https://help.inventive.ru/api/task?fields=Id,Name,StatusId";
+			string idUser = "5273";
+			string urlISTasks = $"https://help.inventive.ru/api/task?fields=Id,Name,Deadline&ExecutorIds={idUser}&StatusIDs=31,95";
 
 			TasksToTable(ConnectAndPushUrl(emailIS, passwordIS, urlISTasks));
 		}
 
-		public class Task
-		{
-			public int Id { get; set; }
-			public string Name { get; set; }
-		}
+		
 		public string ConnectAndPushUrl(string email, string pass, string url)
 		{
 			var result = string.Empty;
@@ -90,9 +85,16 @@ namespace WorkHellperIRG
 			}
 			foreach (Task item in task)
 			{
-				ListViewItem item2 = new ListViewItem(new string[] { item.Id.ToString(), item.Name.ToString() });
+				ListViewItem item2 = new ListViewItem(new string[] { item.Id.ToString(), item.Name, item.Deadline});
 				listView1.Items.Add(item2);
 			}
+		}
+
+		public class Task
+		{
+			public int Id { get; set; }
+			public string Name { get; set; }
+			public string Deadline { get; set; }
 		}
 	}
 }
