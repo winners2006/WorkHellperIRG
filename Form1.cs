@@ -43,24 +43,7 @@ namespace WorkHellperIRG
 			string urlISTasks = $"https://help.inventive.ru/api/task?fields=Id,Name,Deadline&ExecutorIds={idUser}&StatusIDs=31,95";
 			//label15.Text = LoginForm.Instance.resultUser;
 			TasksToTable(ConnectAndPushUrl(emailIS, passwordIS, urlISTasks));
-
-			
-			foreach (ListViewItem item in listView1.Items)
-			{
-				if (item.SubItems[2] != null && item.SubItems[2].Text != "")
-				{
-					string tempDateTime = item.SubItems[2].Text;
-					DateTime dateTimeEnd = DateTime.Parse(tempDateTime);
-					if (dateTimeEnd.Subtract(DateTime.Now).TotalMinutes < 30.0)
-					{
-						item.BackColor = Color.Red;
-					}
-					else if (dateTimeEnd.Subtract(DateTime.Now).TotalMinutes < 1440)
-					{
-						item.BackColor = Color.Orange;
-					}
-				}
-			}
+			DataEndTasks();
 		}
 
 		
@@ -115,6 +98,25 @@ namespace WorkHellperIRG
 				{
 					ListViewItem item2 = new ListViewItem(new string[] { item.Id.ToString(), item.Name, item.Deadline });
 					listView1.Items.Add(item2);
+				}
+			}
+		}
+		public void DataEndTasks()
+		{
+			foreach (ListViewItem item in listView1.Items)
+			{
+				if (item.SubItems[2] != null && item.SubItems[2].Text != "")
+				{
+					string tempDateTime = item.SubItems[2].Text;
+					DateTime dateTimeEnd = DateTime.Parse(tempDateTime);
+					if (dateTimeEnd.Subtract(DateTime.Now).TotalMinutes < 30.0)
+					{
+						item.BackColor = Color.Red;
+					}
+					else if (dateTimeEnd.Subtract(DateTime.Now).TotalMinutes < 1440)
+					{
+						item.BackColor = Color.Orange;
+					}
 				}
 			}
 		}
