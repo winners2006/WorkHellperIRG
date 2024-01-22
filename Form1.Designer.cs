@@ -1,4 +1,5 @@
 ﻿using System.Security.Cryptography.X509Certificates;
+using System.Windows.Forms;
 
 namespace WorkHellperIRG
 {
@@ -50,6 +51,9 @@ namespace WorkHellperIRG
 			this.Id = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.DataEnd = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.button3 = new System.Windows.Forms.Button();
+			this.button4 = new System.Windows.Forms.Button();
+			this.button5 = new System.Windows.Forms.Button();
 			this.panel1.SuspendLayout();
 			this.panel3.SuspendLayout();
 			this.panel2.SuspendLayout();
@@ -61,7 +65,7 @@ namespace WorkHellperIRG
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(91, 36);
 			this.button1.TabIndex = 1;
-			this.button1.Text = "Вход";
+			this.button1.Text = "Настройки";
 			this.button1.UseVisualStyleBackColor = true;
 			this.button1.Click += new System.EventHandler(this.buttonEnter);
 			// 
@@ -225,7 +229,7 @@ namespace WorkHellperIRG
 			// label14
 			// 
 			this.label14.AutoSize = true;
-			this.label14.Location = new System.Drawing.Point(112, 51);
+			this.label14.Location = new System.Drawing.Point(12, 57);
 			this.label14.Name = "label14";
 			this.label14.Size = new System.Drawing.Size(164, 16);
 			this.label14.TabIndex = 8;
@@ -244,7 +248,7 @@ namespace WorkHellperIRG
 			// 
 			this.button2.Location = new System.Drawing.Point(12, 18);
 			this.button2.Name = "button2";
-			this.button2.Size = new System.Drawing.Size(75, 23);
+			this.button2.Size = new System.Drawing.Size(93, 23);
 			this.button2.TabIndex = 10;
 			this.button2.Text = "Обновить";
 			this.button2.UseVisualStyleBackColor = true;
@@ -259,17 +263,19 @@ namespace WorkHellperIRG
             this.DataEnd});
 			this.listView1.FullRowSelect = true;
 			this.listView1.HideSelection = false;
-			this.listView1.Location = new System.Drawing.Point(15, 79);
+			this.listView1.Location = new System.Drawing.Point(4, 79);
 			this.listView1.Name = "listView1";
 			this.listView1.ShowItemToolTips = true;
-			this.listView1.Size = new System.Drawing.Size(530, 325);
+			this.listView1.Size = new System.Drawing.Size(541, 325);
 			this.listView1.TabIndex = 11;
 			this.listView1.UseCompatibleStateImageBehavior = false;
 			this.listView1.View = System.Windows.Forms.View.Details;
+			this.listView1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listView_DoubleClick);
 			// 
 			// Id
 			// 
 			this.Id.Text = "Id";
+			this.Id.Width = 56;
 			// 
 			// name
 			// 
@@ -281,9 +287,42 @@ namespace WorkHellperIRG
 			this.DataEnd.Text = "DataEnd";
 			this.DataEnd.Width = 107;
 			// 
+			// button3
+			// 
+			this.button3.Location = new System.Drawing.Point(182, 54);
+			this.button3.Name = "button3";
+			this.button3.Size = new System.Drawing.Size(75, 23);
+			this.button3.TabIndex = 12;
+			this.button3.Text = "МОИ";
+			this.button3.UseVisualStyleBackColor = true;
+			this.button3.Click += new System.EventHandler(this.buttonMyTasks);
+			// 
+			// button4
+			// 
+			this.button4.Location = new System.Drawing.Point(263, 54);
+			this.button4.Name = "button4";
+			this.button4.Size = new System.Drawing.Size(75, 23);
+			this.button4.TabIndex = 13;
+			this.button4.Text = "Новые";
+			this.button4.UseVisualStyleBackColor = true;
+			this.button4.Click += new System.EventHandler(this.buttonNewTasks);
+			// 
+			// button5
+			// 
+			this.button5.Location = new System.Drawing.Point(344, 54);
+			this.button5.Name = "button5";
+			this.button5.Size = new System.Drawing.Size(75, 23);
+			this.button5.TabIndex = 14;
+			this.button5.Text = "1 Линия";
+			this.button5.UseVisualStyleBackColor = true;
+			this.button5.Click += new System.EventHandler(this.button1Line);
+			// 
 			// Form1
 			// 
 			this.ClientSize = new System.Drawing.Size(990, 412);
+			this.Controls.Add(this.button5);
+			this.Controls.Add(this.button4);
+			this.Controls.Add(this.button3);
 			this.Controls.Add(this.listView1);
 			this.Controls.Add(this.button2);
 			this.Controls.Add(this.label15);
@@ -331,6 +370,9 @@ namespace WorkHellperIRG
 		private System.Windows.Forms.ColumnHeader Id;
 		private System.Windows.Forms.ColumnHeader name;
 		private System.Windows.Forms.ColumnHeader DataEnd;
+		private System.Windows.Forms.Button button3;
+		private System.Windows.Forms.Button button4;
+		private Button button5;
 	}
 
 	

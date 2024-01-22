@@ -13,6 +13,7 @@ using Google.GData.Client;
 using Google.GData.Extensions;
 using Google.GData.Spreadsheets;
 using Newtonsoft.Json;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 
 
@@ -25,8 +26,6 @@ namespace WorkHellperIRG
 		public string passwordIS;
 		string emailGoogle;
 		string passwordGoogle;
-		public string resultUser;
-		public string resultUserId;
 
 		public static LoginForm Instance;
 
@@ -34,9 +33,13 @@ namespace WorkHellperIRG
 		{
 			InitializeComponent();
 			Instance = this;
+
+			textBox1.Text = Properties.Settings.Default.emailIS;
+			textBox2.Text = Properties.Settings.Default.passIS;
+			textBox5.Text = Properties.Settings.Default.timer.ToString();
 		}
 
-		
+
 		public void buttonEnterIS(object sender, EventArgs e)
 		{
 			emailIS = textBox1.Text;
@@ -68,8 +71,11 @@ namespace WorkHellperIRG
 			}
 
 			User jsonUser = JsonConvert.DeserializeObject<User>(result);
-			resultUser = jsonUser.Name;
-			resultUserId = jsonUser.Id;
+			Properties.Settings.Default.userName = jsonUser.Name;
+			Properties.Settings.Default.userNameId = jsonUser.Id;
+			Properties.Settings.Default.emailIS = emailIS;
+			Properties.Settings.Default.passIS = passwordIS;
+			Properties.Settings.Default.Save();
 		}
 
 		public void buttonEnterGoogle(object sender, EventArgs e)
@@ -80,6 +86,11 @@ namespace WorkHellperIRG
 			myService.setUserCredentials(emailGoogle, passwordGoogle);
 		}
 
-
+		private void buttonSaveSettings(object sender, EventArgs e)
+		{
+			Properties.Settings.Default.timer = Convert.ToInt32(textBox5.Text);
+			Properties.Settings.Default.Save();
+			this.Close();
+		}
 	}
 }
