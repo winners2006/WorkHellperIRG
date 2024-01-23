@@ -1,25 +1,14 @@
-﻿using GDataDB.Impl;
-using Google.GData.Client;
-using Google.GData.Extensions;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Management.Instrumentation;
 using System.Net;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Net.Mime.MediaTypeNames;
-using static System.Net.WebRequestMethods;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace WorkHellperIRG
 {
@@ -124,44 +113,48 @@ namespace WorkHellperIRG
 			label14.Text = $"Задач в работе: {coutnTasksLineTasks}";
 		}
 
-		private void listView_DoubleClick(object sender, EventArgs e)
+		private void listView1_DoubleClick(object sender, EventArgs e)
 		{
 			try
 			{
-				if(tasksType == 0) 
-				{
-					if (listView1.SelectedItems.Count == 0)
-						return;
-					ListViewItem item = listView1.SelectedItems[0];
-					string temp = item.ToString().Remove(0, 15);
-					string temp2 = temp.TrimEnd(new char[] { '}' });
-					System.Diagnostics.Process.Start($"https://help.inventive.ru/Task/View/{temp2}");
-				}
-
-				else if (tasksType == 1) {
-					if (tasksType == 0)
-					{
-						if (listView2.SelectedItems.Count == 0)
-							return;
-						ListViewItem item = listView2.SelectedItems[0];
-						string temp = item.ToString().Remove(0, 15);
-						string temp2 = temp.TrimEnd(new char[] { '}' });
-						System.Diagnostics.Process.Start($"https://help.inventive.ru/Task/View/{temp2}");
-					}
-				}
-
-				else if (tasksType == 2)
-				{
-					if (tasksType == 0)
-					{
-						if (listView3.SelectedItems.Count == 0)
-							return;
-						ListViewItem item = listView3.SelectedItems[0];
-						string temp = item.ToString().Remove(0, 15);
-						string temp2 = temp.TrimEnd(new char[] { '}' });
-						System.Diagnostics.Process.Start($"https://help.inventive.ru/Task/View/{temp2}");
-					}
-				}
+				if (listView1.SelectedItems.Count == 0)
+					return;
+				ListViewItem item = listView1.SelectedItems[0];
+				string temp = item.ToString().Remove(0, 15);
+				string temp2 = temp.TrimEnd(new char[] { '}' });
+				System.Diagnostics.Process.Start($"https://help.inventive.ru/Task/View/{temp2}");
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+		}
+		private void listView2_DoubleClick(object sender, EventArgs e)
+		{
+			try
+			{
+				if (listView2.SelectedItems.Count == 0)
+					return;
+				ListViewItem item = listView2.SelectedItems[0];
+				string temp = item.ToString().Remove(0, 15);
+				string temp2 = temp.TrimEnd(new char[] { '}' });
+				System.Diagnostics.Process.Start($"https://help.inventive.ru/Task/View/{temp2}");
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+		}
+		private void listView3_DoubleClick(object sender, EventArgs e)
+		{
+			try
+			{
+				if (listView3.SelectedItems.Count == 0)
+					return;
+				ListViewItem item = listView3.SelectedItems[0];
+				string temp = item.ToString().Remove(0, 15);
+				string temp2 = temp.TrimEnd(new char[] { '}' });
+				System.Diagnostics.Process.Start($"https://help.inventive.ru/Task/View/{temp2}");
 			}
 			catch (Exception ex)
 			{

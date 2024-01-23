@@ -279,7 +279,7 @@ namespace WorkHellperIRG
 			this.listView1.TabIndex = 11;
 			this.listView1.UseCompatibleStateImageBehavior = false;
 			this.listView1.View = System.Windows.Forms.View.Details;
-			this.listView1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listView_DoubleClick);
+			this.listView1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listView1_DoubleClick);
 			// 
 			// Id
 			// 
@@ -342,7 +342,7 @@ namespace WorkHellperIRG
 			this.listView2.TabIndex = 15;
 			this.listView2.UseCompatibleStateImageBehavior = false;
 			this.listView2.View = System.Windows.Forms.View.Details;
-			this.listView2.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listView_DoubleClick);
+			this.listView2.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listView2_DoubleClick);
 			// 
 			// columnHeader1
 			// 
@@ -375,7 +375,7 @@ namespace WorkHellperIRG
 			this.listView3.TabIndex = 16;
 			this.listView3.UseCompatibleStateImageBehavior = false;
 			this.listView3.View = System.Windows.Forms.View.Details;
-			this.listView3.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listView_DoubleClick);
+			this.listView3.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listView3_DoubleClick);
 			// 
 			// columnHeader4
 			// 
