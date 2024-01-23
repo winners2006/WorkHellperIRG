@@ -62,6 +62,7 @@ namespace WorkHellperIRG
 			this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.label16 = new System.Windows.Forms.Label();
 			this.panel1.SuspendLayout();
 			this.panel3.SuspendLayout();
 			this.panel2.SuspendLayout();
@@ -391,9 +392,19 @@ namespace WorkHellperIRG
 			this.columnHeader6.Text = "DataEnd";
 			this.columnHeader6.Width = 107;
 			// 
+			// label16
+			// 
+			this.label16.AutoSize = true;
+			this.label16.Location = new System.Drawing.Point(782, 295);
+			this.label16.Name = "label16";
+			this.label16.Size = new System.Drawing.Size(96, 16);
+			this.label16.TabIndex = 9;
+			this.label16.Text = "Выполненые: ";
+			// 
 			// Form1
 			// 
 			this.ClientSize = new System.Drawing.Size(990, 412);
+			this.Controls.Add(this.label16);
 			this.Controls.Add(this.listView3);
 			this.Controls.Add(this.listView2);
 			this.Controls.Add(this.button5);
@@ -457,6 +468,7 @@ namespace WorkHellperIRG
 		private ColumnHeader columnHeader4;
 		private ColumnHeader columnHeader5;
 		private ColumnHeader columnHeader6;
+		private Label label16;
 	}
 
 	

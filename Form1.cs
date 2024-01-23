@@ -37,6 +37,8 @@ namespace WorkHellperIRG
 		int coutnTasksMyTasks = 0;
 		int coutnTasksNewTasks = 0;
 		int coutnTasksLineTasks = 0;
+		public int countWorkDay;
+		public string test;
 
 
 
@@ -57,11 +59,11 @@ namespace WorkHellperIRG
 			listView1.Show();
 			listView2.Hide();
 			listView3.Hide();
+
+			label10.Text = $"Количество рабочих дней: {countWorkDay}";
+			label16.Text = test;
 		}
 
-		
-			
-		
 
 		private void timer_Tick(object sender, EventArgs e)
 		{
@@ -93,12 +95,10 @@ namespace WorkHellperIRG
 			LoginForm dlg = new LoginForm();
 			dlg.Show(this);
 		}
-
 		public void buttonUpdate(object sender, EventArgs e)
 		{
 			UpdateTasks();
 		}
-
 		private void buttonMyTasks(object sender, EventArgs e)
 		{
 			tasksType = 1;
@@ -107,7 +107,6 @@ namespace WorkHellperIRG
 			listView3.Hide();
 			label14.Text = $"Задач в работе: {coutnTasksMyTasks}";
 		}
-
 		private void buttonNewTasks(object sender, EventArgs e)
 		{
 			tasksType = 0;
@@ -116,7 +115,6 @@ namespace WorkHellperIRG
 			listView3.Hide();
 			label14.Text = $"Задач в работе: {coutnTasksNewTasks}";
 		}
-
 		private void button1Line(object sender, EventArgs e)
 		{
 			tasksType = 2;
@@ -181,7 +179,6 @@ namespace WorkHellperIRG
 
 			label2.Text = $"Выполненые: {CountTasksWeekJson(ConnectAndPushUrl(emailIS, passwordIS, urlCountTasks))}";
 		}
-
 		public void CountTasksDay()
 		{
 			DateTime dt = DateTime.Now;
@@ -335,7 +332,6 @@ namespace WorkHellperIRG
 				}
 			}
 		}
-
 		public void TasksToTableNewTasks(string jsonTasks)
 		{
 			coutnTasksNewTasks = 0;
@@ -365,7 +361,6 @@ namespace WorkHellperIRG
 				}
 			}
 		}
-
 		public void TasksToTableLineTasks(string jsonTasks)
 		{
 			coutnTasksLineTasks = 0;
@@ -471,7 +466,6 @@ namespace WorkHellperIRG
 			return countWeek;
 			
 		}
-
 		public int CountTasksDayJson(string jsonTasks)
 		{
 			int countDay = 0;
@@ -512,7 +506,6 @@ namespace WorkHellperIRG
 				}
 			}
 		}
-
 		public void DataEndTasksNewTasks()
 		{
 			foreach (ListViewItem item in listView2.Items)
@@ -533,7 +526,6 @@ namespace WorkHellperIRG
 			}
 
 		}
-
 		public void DataEndTasksLineTasks()
 		{
 			foreach (ListViewItem item in listView3.Items)
@@ -562,7 +554,6 @@ namespace WorkHellperIRG
 			public string PriorityId { get; set; }
 			public string Created {  get; set; }
 		}
-
 		public class NewTask
 		{
 			public int Id { get; set; }
@@ -571,7 +562,6 @@ namespace WorkHellperIRG
 			public string PriorityId { get; set; }
 			public string Created { get; set; }
 		}
-
 		public class LineTask
 		{
 			public int Id { get; set; }
@@ -580,11 +570,11 @@ namespace WorkHellperIRG
 			public string PriorityId { get; set; }
 			public string Created { get; set; }
 		}
-
 		public class CountTask
 		{
 			public int Id { get; set; }
 			public string ResolutionDateFact { get; set; }
 		}
+
 	}
 }

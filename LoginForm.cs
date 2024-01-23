@@ -80,10 +80,7 @@ namespace WorkHellperIRG
 
 		public void buttonEnterGoogle(object sender, EventArgs e)
 		{
-			emailGoogle = textBox3.Text;
-			passwordGoogle = textBox4.Text;
-			SpreadsheetsService myService = new SpreadsheetsService("https://docs.google.com/spreadsheets/d/1SXNJzlA_YgcgwcUkcOncy0MJT93xa0v-N16DIf1Lmcc");
-			myService.setUserCredentials(emailGoogle, passwordGoogle);
+			
 		}
 
 		private void buttonSaveSettings(object sender, EventArgs e)
