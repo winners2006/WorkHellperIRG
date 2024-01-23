@@ -1,19 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Google.GData.Client;
-using Google.GData.Extensions;
-using Google.GData.Spreadsheets;
 using Newtonsoft.Json;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 
 
@@ -24,8 +15,6 @@ namespace WorkHellperIRG
 
 		public string emailIS;
 		public string passwordIS;
-		string emailGoogle;
-		string passwordGoogle;
 
 		public static LoginForm Instance;
 
@@ -80,17 +69,21 @@ namespace WorkHellperIRG
 
 		public void buttonEnterGoogle(object sender, EventArgs e)
 		{
-			emailGoogle = textBox3.Text;
-			passwordGoogle = textBox4.Text;
-			SpreadsheetsService myService = new SpreadsheetsService("https://docs.google.com/spreadsheets/d/1SXNJzlA_YgcgwcUkcOncy0MJT93xa0v-N16DIf1Lmcc");
-			myService.setUserCredentials(emailGoogle, passwordGoogle);
+			
 		}
 
 		private void buttonSaveSettings(object sender, EventArgs e)
 		{
 			Properties.Settings.Default.timer = Convert.ToInt32(textBox5.Text);
 			Properties.Settings.Default.Save();
+			
 			this.Close();
+		}
+
+		private void buttonResetSettings(object sender, EventArgs e)
+		{
+			Properties.Settings.Default.Reset();
+			Properties.Settings.Default.Save();
 		}
 	}
 }

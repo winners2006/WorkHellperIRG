@@ -54,6 +54,15 @@ namespace WorkHellperIRG
 			this.button3 = new System.Windows.Forms.Button();
 			this.button4 = new System.Windows.Forms.Button();
 			this.button5 = new System.Windows.Forms.Button();
+			this.listView2 = new System.Windows.Forms.ListView();
+			this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.listView3 = new System.Windows.Forms.ListView();
+			this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.label16 = new System.Windows.Forms.Label();
 			this.panel1.SuspendLayout();
 			this.panel3.SuspendLayout();
 			this.panel2.SuspendLayout();
@@ -270,7 +279,7 @@ namespace WorkHellperIRG
 			this.listView1.TabIndex = 11;
 			this.listView1.UseCompatibleStateImageBehavior = false;
 			this.listView1.View = System.Windows.Forms.View.Details;
-			this.listView1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listView_DoubleClick);
+			this.listView1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listView1_DoubleClick);
 			// 
 			// Id
 			// 
@@ -317,9 +326,87 @@ namespace WorkHellperIRG
 			this.button5.UseVisualStyleBackColor = true;
 			this.button5.Click += new System.EventHandler(this.button1Line);
 			// 
+			// listView2
+			// 
+			this.listView2.AllowColumnReorder = true;
+			this.listView2.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader3});
+			this.listView2.FullRowSelect = true;
+			this.listView2.HideSelection = false;
+			this.listView2.Location = new System.Drawing.Point(4, 79);
+			this.listView2.Name = "listView2";
+			this.listView2.ShowItemToolTips = true;
+			this.listView2.Size = new System.Drawing.Size(541, 325);
+			this.listView2.TabIndex = 15;
+			this.listView2.UseCompatibleStateImageBehavior = false;
+			this.listView2.View = System.Windows.Forms.View.Details;
+			this.listView2.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listView2_DoubleClick);
+			// 
+			// columnHeader1
+			// 
+			this.columnHeader1.Text = "Id";
+			this.columnHeader1.Width = 56;
+			// 
+			// columnHeader2
+			// 
+			this.columnHeader2.Text = "Name";
+			this.columnHeader2.Width = 353;
+			// 
+			// columnHeader3
+			// 
+			this.columnHeader3.Text = "DataEnd";
+			this.columnHeader3.Width = 107;
+			// 
+			// listView3
+			// 
+			this.listView3.AllowColumnReorder = true;
+			this.listView3.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader4,
+            this.columnHeader5,
+            this.columnHeader6});
+			this.listView3.FullRowSelect = true;
+			this.listView3.HideSelection = false;
+			this.listView3.Location = new System.Drawing.Point(4, 79);
+			this.listView3.Name = "listView3";
+			this.listView3.ShowItemToolTips = true;
+			this.listView3.Size = new System.Drawing.Size(541, 325);
+			this.listView3.TabIndex = 16;
+			this.listView3.UseCompatibleStateImageBehavior = false;
+			this.listView3.View = System.Windows.Forms.View.Details;
+			this.listView3.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listView3_DoubleClick);
+			// 
+			// columnHeader4
+			// 
+			this.columnHeader4.Text = "Id";
+			this.columnHeader4.Width = 56;
+			// 
+			// columnHeader5
+			// 
+			this.columnHeader5.Text = "Name";
+			this.columnHeader5.Width = 353;
+			// 
+			// columnHeader6
+			// 
+			this.columnHeader6.Text = "DataEnd";
+			this.columnHeader6.Width = 107;
+			// 
+			// label16
+			// 
+			this.label16.AutoSize = true;
+			this.label16.Location = new System.Drawing.Point(782, 295);
+			this.label16.Name = "label16";
+			this.label16.Size = new System.Drawing.Size(96, 16);
+			this.label16.TabIndex = 9;
+			this.label16.Text = "Выполненые: ";
+			// 
 			// Form1
 			// 
 			this.ClientSize = new System.Drawing.Size(990, 412);
+			this.Controls.Add(this.label16);
+			this.Controls.Add(this.listView3);
+			this.Controls.Add(this.listView2);
 			this.Controls.Add(this.button5);
 			this.Controls.Add(this.button4);
 			this.Controls.Add(this.button3);
@@ -373,6 +460,15 @@ namespace WorkHellperIRG
 		private System.Windows.Forms.Button button3;
 		private System.Windows.Forms.Button button4;
 		private Button button5;
+		private ListView listView2;
+		private ColumnHeader columnHeader1;
+		private ColumnHeader columnHeader2;
+		private ColumnHeader columnHeader3;
+		private ListView listView3;
+		private ColumnHeader columnHeader4;
+		private ColumnHeader columnHeader5;
+		private ColumnHeader columnHeader6;
+		private Label label16;
 	}
 
 	

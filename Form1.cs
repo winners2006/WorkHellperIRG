@@ -1,24 +1,14 @@
-﻿using GDataDB.Impl;
-using Google.GData.Client;
-using Google.GData.Extensions;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Management.Instrumentation;
 using System.Net;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Net.WebRequestMethods;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace WorkHellperIRG
 {
@@ -28,9 +18,16 @@ namespace WorkHellperIRG
 		string emailIS = Properties.Settings.Default.emailIS;
 		string passwordIS = Properties.Settings.Default.passIS;
 		string idUser = Properties.Settings.Default.userNameId;
-		string urlISTasks;
+		string urlISTasksMyTasks;
+		string urlISTasksNewTasks;
+		string urlISTasksLineTasks;
 		int tasksType;
-		int timerNum;
+		int timerNum = 30;
+		int coutnTasksMyTasks = 0;
+		int coutnTasksNewTasks = 0;
+		int coutnTasksLineTasks = 0;
+		public int countWorkDay;
+		public string test;
 
 
 
@@ -47,11 +44,15 @@ namespace WorkHellperIRG
 			timer.Start();
 
 			label15.Text = Properties.Settings.Default.userName;
+
+			listView1.Show();
+			listView2.Hide();
+			listView3.Hide();
+
+			label10.Text = $"Количество рабочих дней: {countWorkDay}";
+			label16.Text = test;
 		}
 
-		
-			
-		
 
 		private void timer_Tick(object sender, EventArgs e)
 		{
@@ -61,21 +62,19 @@ namespace WorkHellperIRG
 		private void UpdateTasks()
 		{
 			listView1.Items.Clear();
-			if (tasksType == 1)
-			{
-				urlISTasks = $"https://help.inventive.ru/api/task?fields=Id,Name,Deadline&ExecutorIds={idUser}&StatusIDs=31,95";
-			}
-			else if (tasksType == 0)
-			{
-				urlISTasks = $"https://help.inventive.ru/api/task?fields=Id,Name,Deadline&filterid=3211&StatusIDs=31,95";
-			}
-			else if (tasksType == 2)
-			{
-				urlISTasks = $"https://help.inventive.ru/api/task?fields=Id,Name,Deadline&filterid=3213&StatusIDs=31,95";
-			}
+			listView2.Items.Clear();
+			listView3.Items.Clear();
+
+			TasksToTableMyTasks(ConnectAndPushUrlMyTasks(emailIS, passwordIS));
+			TasksToTableNewTasks(ConnectAndPushUrlNewTasks(emailIS, passwordIS));
+			TasksToTableLineTasks(ConnectAndPushUrlLineTasks(emailIS, passwordIS));
+
+			MessengeTasks(ConnectAndPushUrlNewTasks(emailIS, passwordIS));
+
 			timerNum = Properties.Settings.Default.timer;
-			TasksToTable(ConnectAndPushUrl(emailIS, passwordIS, urlISTasks));
-			DataEndTasks();
+			DataEndTasksMyTasks();
+			DataEndTasksNewTasks();
+			DataEndTasksLineTasks();
 			CountTasksWeek();
 			CountTasksDay();
 		}
@@ -85,41 +84,77 @@ namespace WorkHellperIRG
 			LoginForm dlg = new LoginForm();
 			dlg.Show(this);
 		}
-
 		public void buttonUpdate(object sender, EventArgs e)
 		{
 			UpdateTasks();
 		}
-
 		private void buttonMyTasks(object sender, EventArgs e)
 		{
 			tasksType = 1;
-			UpdateTasks();
+			listView1.Show();
+			listView2.Hide();
+			listView3.Hide();
+			label14.Text = $"Задач в работе: {coutnTasksMyTasks}";
 		}
-
 		private void buttonNewTasks(object sender, EventArgs e)
 		{
 			tasksType = 0;
-			UpdateTasks();
+			listView1.Hide();
+			listView2.Show();
+			listView3.Hide();
+			label14.Text = $"Задач в работе: {coutnTasksNewTasks}";
 		}
-
 		private void button1Line(object sender, EventArgs e)
 		{
 			tasksType = 2;
-			UpdateTasks();
+			listView1.Hide();
+			listView2.Hide();
+			listView3.Show();
+			label14.Text = $"Задач в работе: {coutnTasksLineTasks}";
 		}
 
-		private void listView_DoubleClick(object sender, EventArgs e)
+		private void listView1_DoubleClick(object sender, EventArgs e)
 		{
 			try
 			{
 				if (listView1.SelectedItems.Count == 0)
 					return;
 				ListViewItem item = listView1.SelectedItems[0];
-				string temp = item.ToString().Remove(0,15);
+				string temp = item.ToString().Remove(0, 15);
 				string temp2 = temp.TrimEnd(new char[] { '}' });
 				System.Diagnostics.Process.Start($"https://help.inventive.ru/Task/View/{temp2}");
-
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+		}
+		private void listView2_DoubleClick(object sender, EventArgs e)
+		{
+			try
+			{
+				if (listView2.SelectedItems.Count == 0)
+					return;
+				ListViewItem item = listView2.SelectedItems[0];
+				string temp = item.ToString().Remove(0, 15);
+				string temp2 = temp.TrimEnd(new char[] { '}' });
+				System.Diagnostics.Process.Start($"https://help.inventive.ru/Task/View/{temp2}");
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+		}
+		private void listView3_DoubleClick(object sender, EventArgs e)
+		{
+			try
+			{
+				if (listView3.SelectedItems.Count == 0)
+					return;
+				ListViewItem item = listView3.SelectedItems[0];
+				string temp = item.ToString().Remove(0, 15);
+				string temp2 = temp.TrimEnd(new char[] { '}' });
+				System.Diagnostics.Process.Start($"https://help.inventive.ru/Task/View/{temp2}");
 			}
 			catch (Exception ex)
 			{
@@ -137,7 +172,6 @@ namespace WorkHellperIRG
 
 			label2.Text = $"Выполненые: {CountTasksWeekJson(ConnectAndPushUrl(emailIS, passwordIS, urlCountTasks))}";
 		}
-
 		public void CountTasksDay()
 		{
 			DateTime dt = DateTime.Now;
@@ -147,7 +181,94 @@ namespace WorkHellperIRG
 			label7.Text = $"Выполненые: { CountTasksDayJson(ConnectAndPushUrl(emailIS, passwordIS, urlCountTasks))}";
 		}
 
-		public string ConnectAndPushUrl(string email, string pass, string url)
+		public string ConnectAndPushUrlMyTasks(string email, string pass)
+		{
+			urlISTasksMyTasks = $"https://help.inventive.ru/api/task?fields=Id,Name,Deadline&ExecutorIds={idUser}&StatusIDs=31,95";
+
+			var result = string.Empty;
+			try
+			{
+				var httpWebRequest = (HttpWebRequest)WebRequest.Create(urlISTasksMyTasks);
+
+				httpWebRequest.Method = "Get";
+				httpWebRequest.Headers["Authorization"] = "Basic " + Convert.ToBase64String(Encoding.Default.GetBytes($"{email}:{pass}"));
+				httpWebRequest.KeepAlive = false;
+				httpWebRequest.Accept = "text/json";
+				httpWebRequest.ContentType = "application/json";
+				var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+				HttpWebResponse resp = httpWebRequest.GetResponse() as HttpWebResponse;
+				if ((int)resp.StatusCode == 200) button2.BackColor = Color.Green;
+				using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+				{
+					result = streamReader.ReadToEnd();
+				}
+			}
+			catch (WebException ex)
+			{
+				button2.BackColor = Color.Red;
+				result = ex.Message;
+			}
+			return result;
+		}
+		public string ConnectAndPushUrlNewTasks(string email, string pass)
+		{
+			urlISTasksNewTasks = $"https://help.inventive.ru/api/task?fields=Id,Name,Deadline,PriorityId,Created&filterid=3211&StatusIDs=31,95";
+
+			var result = string.Empty;
+			try
+			{
+				var httpWebRequest = (HttpWebRequest)WebRequest.Create(urlISTasksNewTasks);
+
+				httpWebRequest.Method = "Get";
+				httpWebRequest.Headers["Authorization"] = "Basic " + Convert.ToBase64String(Encoding.Default.GetBytes($"{email}:{pass}"));
+				httpWebRequest.KeepAlive = false;
+				httpWebRequest.Accept = "text/json";
+				httpWebRequest.ContentType = "application/json";
+				var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+				HttpWebResponse resp = httpWebRequest.GetResponse() as HttpWebResponse;
+				if ((int)resp.StatusCode == 200) button2.BackColor = Color.Green;
+				using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+				{
+					result = streamReader.ReadToEnd();
+				}
+			}
+			catch (WebException ex)
+			{
+				button2.BackColor = Color.Red;
+				result = ex.Message;
+			}
+			return result;
+		}
+		public string ConnectAndPushUrlLineTasks(string email, string pass)
+		{
+			urlISTasksLineTasks = $"https://help.inventive.ru/api/task?fields=Id,Name,Deadline&filterid=3213&StatusIDs=31,95";
+
+			var result = string.Empty;
+			try
+			{
+				var httpWebRequest = (HttpWebRequest)WebRequest.Create(urlISTasksLineTasks);
+
+				httpWebRequest.Method = "Get";
+				httpWebRequest.Headers["Authorization"] = "Basic " + Convert.ToBase64String(Encoding.Default.GetBytes($"{email}:{pass}"));
+				httpWebRequest.KeepAlive = false;
+				httpWebRequest.Accept = "text/json";
+				httpWebRequest.ContentType = "application/json";
+				var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+				HttpWebResponse resp = httpWebRequest.GetResponse() as HttpWebResponse;
+				if ((int)resp.StatusCode == 200) button2.BackColor = Color.Green;
+				using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+				{
+					result = streamReader.ReadToEnd();
+				}
+			}
+			catch (WebException ex)
+			{
+				button2.BackColor = Color.Red;
+				result = ex.Message;
+			}
+			return result;
+		}
+		public string ConnectAndPushUrl(string email, string pass,string url)
 		{
 			var result = string.Empty;
 			try
@@ -175,22 +296,21 @@ namespace WorkHellperIRG
 			return result;
 		}
 
-		public void TasksToTable(string jsonTasks)
+		public void TasksToTableMyTasks(string jsonTasks)
 		{
-			int coutnTasks = 0;
-
+			coutnTasksMyTasks = 0;
 			JObject tasksIS = JObject.Parse(jsonTasks);
 
 			IList<JToken> tasks = tasksIS["Tasks"].Children().ToList();
-			IList<Task> task = new List<Task>();
+			IList<MyTask> task = new List<MyTask>();
 			foreach (JToken taskToken in tasks)
 			{
-				Task task1 = JsonConvert.DeserializeObject<Task>(taskToken.ToString());
+				MyTask task1 = JsonConvert.DeserializeObject<MyTask>(taskToken.ToString());
 				task.Add(task1);
 			}
-			foreach (Task item in task)
+			foreach (MyTask item in task)
 			{
-				coutnTasks++;
+				coutnTasksMyTasks++;
 				if (item.Deadline != null && item.Deadline.ToString() != "")
 				{
 					string temp = item.Deadline.ToString();
@@ -204,7 +324,119 @@ namespace WorkHellperIRG
 					listView1.Items.Add(item2);
 				}
 			}
-			label14.Text = $"Задач в работе: {coutnTasks}";
+		}
+		public void TasksToTableNewTasks(string jsonTasks)
+		{
+			coutnTasksNewTasks = 0;
+			JObject tasksIS = JObject.Parse(jsonTasks);
+
+			IList<JToken> tasks = tasksIS["Tasks"].Children().ToList();
+			IList<NewTask> task = new List<NewTask>();
+			foreach (JToken taskToken in tasks)
+			{
+				NewTask task1 = JsonConvert.DeserializeObject<NewTask>(taskToken.ToString());
+				task.Add(task1);
+			}
+			foreach (NewTask item in task)
+			{
+				coutnTasksNewTasks++;
+				if (item.Deadline != null && item.Deadline.ToString() != "")
+				{
+					string temp = item.Deadline.ToString();
+					string dateEnd = temp.Replace("T", " ");
+					ListViewItem item2 = new ListViewItem(new string[] { item.Id.ToString(), item.Name, dateEnd });
+					listView2.Items.Add(item2);
+				}
+				else
+				{
+					ListViewItem item2 = new ListViewItem(new string[] { item.Id.ToString(), item.Name, item.Deadline });
+					listView2.Items.Add(item2);
+				}
+			}
+		}
+		public void TasksToTableLineTasks(string jsonTasks)
+		{
+			coutnTasksLineTasks = 0;
+			JObject tasksIS = JObject.Parse(jsonTasks);
+
+			IList<JToken> tasks = tasksIS["Tasks"].Children().ToList();
+			IList<LineTask> task = new List<LineTask>();
+			foreach (JToken taskToken in tasks)
+			{
+				LineTask task1 = JsonConvert.DeserializeObject<LineTask>(taskToken.ToString());
+				task.Add(task1);
+			}
+			foreach (LineTask item in task)
+			{
+				coutnTasksLineTasks++;
+				if (item.Deadline != null && item.Deadline.ToString() != "")
+				{
+					string temp = item.Deadline.ToString();
+					string dateEnd = temp.Replace("T", " ");
+					ListViewItem item2 = new ListViewItem(new string[] { item.Id.ToString(), item.Name, dateEnd });
+					listView3.Items.Add(item2);
+				}
+				else
+				{
+					ListViewItem item2 = new ListViewItem(new string[] { item.Id.ToString(), item.Name, item.Deadline });
+					listView3.Items.Add(item2);
+				}
+			}
+		}
+
+		public void MessengeTasks(string jsonTasks)
+		{
+			JObject tasksIS = JObject.Parse(jsonTasks);
+
+			IList<JToken> tasks = tasksIS["Tasks"].Children().ToList();
+			IList<NewTask> task = new List<NewTask>();
+			foreach (JToken taskToken in tasks)
+			{
+				NewTask task1 = JsonConvert.DeserializeObject<NewTask>(taskToken.ToString());
+				task.Add(task1);
+			}
+
+			foreach (NewTask i in task)
+			{
+				MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+				MessageBoxIcon iconMess = MessageBoxIcon.Warning;
+				DialogResult resultClicMessege;
+				DateTime dtNow = DateTime.Now;
+				string NameMess = "Новая заявка";
+				string tempDateStart = i.Created;
+				DateTime dateTimeStart = DateTime.Parse(tempDateStart.ToString());
+				if (dtNow.Subtract(dateTimeStart).TotalMinutes < 2 & Convert.ToInt32(i.PriorityId) == 12)
+				{
+					string message = $"Приоритет КРИТИЧНЫЙ заявка № {i.Id}. Необходимо взять в работу в течении 15 минут. Выполнить в течении 4 часов! Открыть заявку?";
+					resultClicMessege = MessageBox.Show(message, NameMess, buttons, iconMess);
+					if (resultClicMessege == DialogResult.Yes) System.Diagnostics.Process.Start($"https://help.inventive.ru/Task/View/{i.Id}");
+				}
+				else if (dtNow.Subtract(dateTimeStart).TotalMinutes < 2 & Convert.ToInt32(i.PriorityId) == 10)
+				{
+					string message = $"Приоритет ВЫСОКИЙ заявка № {i.Id}. Необходимо взять в работу в течении 40 минут. Выполнить в течении 8 часов! Открыть заявку?";
+					resultClicMessege = MessageBox.Show(message, NameMess, buttons, iconMess);
+					if (resultClicMessege == DialogResult.Yes) System.Diagnostics.Process.Start($"https://help.inventive.ru/Task/View/{i.Id}");
+				}
+
+				else if (dtNow.Subtract(dateTimeStart).TotalMinutes < 2 & Convert.ToInt32(i.PriorityId) == 9)
+				{
+					string message = $"Приоритет СРЕДНИЙ заявка № {i.Id}. Необходимо взять в работу в течении 4 часов. Выполнить в течении 48 часов! Открыть заявку?";
+					resultClicMessege = MessageBox.Show(message, NameMess, buttons, iconMess);
+					if (resultClicMessege == DialogResult.Yes) System.Diagnostics.Process.Start($"https://help.inventive.ru/Task/View/{i.Id}");
+				}
+				else if (dtNow.Subtract(dateTimeStart).TotalMinutes < 2 & Convert.ToInt32(i.PriorityId) == 11)
+				{
+					string message = $"Приоритет НИЗКИЙ заявка № {i.Id}. Необходимо взять в работу в течении 16 часов. Выполнить в течении 80 часов! Открыть заявку?";
+					resultClicMessege = MessageBox.Show(message, NameMess, buttons, iconMess);
+					if (resultClicMessege == DialogResult.Yes) System.Diagnostics.Process.Start($"https://help.inventive.ru/Task/View/{i.Id}");
+				}
+				else if (dtNow.Subtract(dateTimeStart).TotalMinutes > 10 & dtNow.Subtract(dateTimeStart).TotalMinutes < 12 & Convert.ToInt32(i.PriorityId) == 12)
+				{
+					string message = $"Приоритет КРИТИЧНЫЙ заявка № {i.Id}. Необходимо срочно взять в работу! Открыть заявку?";
+					resultClicMessege = MessageBox.Show(message, NameMess, buttons, iconMess);
+					if (resultClicMessege == DialogResult.Yes) System.Diagnostics.Process.Start($"https://help.inventive.ru/Task/View/{i.Id}");
+				}
+			}
 		}
 
 		public int CountTasksWeekJson(string jsonTasks)
@@ -227,7 +459,6 @@ namespace WorkHellperIRG
 			return countWeek;
 			
 		}
-
 		public int CountTasksDayJson(string jsonTasks)
 		{
 			int countDay = 0;
@@ -249,7 +480,7 @@ namespace WorkHellperIRG
 
 		}
 
-		public void DataEndTasks()
+		public void DataEndTasksMyTasks()
 		{
 			foreach (ListViewItem item in listView1.Items)
 			{
@@ -268,14 +499,70 @@ namespace WorkHellperIRG
 				}
 			}
 		}
+		public void DataEndTasksNewTasks()
+		{
+			foreach (ListViewItem item in listView2.Items)
+			{
+				if (item.SubItems[2] != null && item.SubItems[2].Text != "")
+				{
+					string tempDateTime = item.SubItems[2].Text;
+					DateTime dateTimeEnd = DateTime.Parse(tempDateTime);
+					if (dateTimeEnd.Subtract(DateTime.Now).TotalMinutes < 30.0)
+					{
+						item.BackColor = Color.Red;
+					}
+					else if (dateTimeEnd.Subtract(DateTime.Now).TotalMinutes < 1440)
+					{
+						item.BackColor = Color.Orange;
+					}
+				}
+			}
 
-		public class Task
+		}
+		public void DataEndTasksLineTasks()
+		{
+			foreach (ListViewItem item in listView3.Items)
+			{
+				if (item.SubItems[2] != null && item.SubItems[2].Text != "")
+				{
+					string tempDateTime = item.SubItems[2].Text;
+					DateTime dateTimeEnd = DateTime.Parse(tempDateTime);
+					if (dateTimeEnd.Subtract(DateTime.Now).TotalMinutes < 30.0)
+					{
+						item.BackColor = Color.Red;
+					}
+					else if (dateTimeEnd.Subtract(DateTime.Now).TotalMinutes < 1440)
+					{
+						item.BackColor = Color.Orange;
+					}
+				}
+			}
+		}
+
+		public class MyTask
 		{
 			public int Id { get; set; }
 			public string Name { get; set; }
 			public string Deadline { get; set; }
+			public string PriorityId { get; set; }
+			public string Created {  get; set; }
 		}
-
+		public class NewTask
+		{
+			public int Id { get; set; }
+			public string Name { get; set; }
+			public string Deadline { get; set; }
+			public string PriorityId { get; set; }
+			public string Created { get; set; }
+		}
+		public class LineTask
+		{
+			public int Id { get; set; }
+			public string Name { get; set; }
+			public string Deadline { get; set; }
+			public string PriorityId { get; set; }
+			public string Created { get; set; }
+		}
 		public class CountTask
 		{
 			public int Id { get; set; }
