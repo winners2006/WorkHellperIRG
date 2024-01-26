@@ -49,7 +49,7 @@ namespace WorkHellperIRG
 			{
 				using (HttpResponseMessage response = await сlient.GetAsync(urlISUser))
 				{
-					сlient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(Encoding.Default.GetBytes($"{emailIS}:{passwordIS}")));
+					сlient.DefaultRequestHeaders.Add($"Basic {Convert.ToBase64String(Encoding.Default.GetBytes($"{emailIS}:{passwordIS}"))}","");
 					response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 					response.EnsureSuccessStatusCode();
 					result = await response.Content.ReadAsStringAsync();
