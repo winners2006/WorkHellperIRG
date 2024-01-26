@@ -61,22 +61,25 @@ namespace WorkHellperIRG
 
 		private void UpdateTasks()
 		{
-			listView1.Items.Clear();
-			listView2.Items.Clear();
-			listView3.Items.Clear();
+			if (emailIS != null && emailIS != "" && passwordIS != null && passwordIS != "")
+			{
+				listView1.Items.Clear();
+				listView2.Items.Clear();
+				listView3.Items.Clear();
 
-			TasksToTableMyTasks(ConnectAndPushUrlMyTasks(emailIS, passwordIS));
-			TasksToTableNewTasks(ConnectAndPushUrlNewTasks(emailIS, passwordIS));
-			TasksToTableLineTasks(ConnectAndPushUrlLineTasks(emailIS, passwordIS));
+				TasksToTableMyTasks(ConnectAndPushUrlMyTasks(emailIS, passwordIS));
+				TasksToTableNewTasks(ConnectAndPushUrlNewTasks(emailIS, passwordIS));
+				TasksToTableLineTasks(ConnectAndPushUrlLineTasks(emailIS, passwordIS));
 
-			MessengeTasks(ConnectAndPushUrlNewTasks(emailIS, passwordIS));
+				MessengeTasks(ConnectAndPushUrlNewTasks(emailIS, passwordIS));
 
-			timerNum = Properties.Settings.Default.timer;
-			DataEndTasksMyTasks();
-			DataEndTasksNewTasks();
-			DataEndTasksLineTasks();
-			CountTasksWeek();
-			CountTasksDay();
+				timerNum = Properties.Settings.Default.timer;
+				DataEndTasksMyTasks();
+				DataEndTasksNewTasks();
+				DataEndTasksLineTasks();
+				CountTasksWeek();
+				CountTasksDay();
+			}
 		}
 
 		private void buttonEnter(object sender, EventArgs e)
@@ -168,7 +171,7 @@ namespace WorkHellperIRG
 			DateTime startOfWeek = dt.AddDays((((int)(dt.DayOfWeek) + 6) % 7) * -1);
 			DateTime dtstart = DateTime.Parse(startOfWeek.ToString());
 			string startW = dtstart.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
-			string urlCountTasks = $"https://help.inventive.ru/api/task?fields=Id&ResolutionDateFactMoreThan={startW}&ExecutorIds=5273&PageSize=300";
+			string urlCountTasks = $"https://help.inventive.ru/api/task?fields=Id&ResolutionDateFactMoreThan={startW}&ExecutorIds={idUser}&PageSize=300";
 
 			label2.Text = $"Выполненые: {CountTasksWeekJson(ConnectAndPushUrl(emailIS, passwordIS, urlCountTasks))}";
 		}
@@ -176,7 +179,7 @@ namespace WorkHellperIRG
 		{
 			DateTime dt = DateTime.Now;
 			string dayNow = dt.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
-			string urlCountTasks = $"https://help.inventive.ru/api/task?fields=Id&ResolutionDateFactMoreThan={dayNow}&ExecutorIds=5273&PageSize=100";
+			string urlCountTasks = $"https://help.inventive.ru/api/task?fields=Id&ResolutionDateFactMoreThan={dayNow}&ExecutorIds={idUser}&PageSize=100";
 
 			label7.Text = $"Выполненые: { CountTasksDayJson(ConnectAndPushUrl(emailIS, passwordIS, urlCountTasks))}";
 		}
