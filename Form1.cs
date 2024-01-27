@@ -33,7 +33,7 @@ namespace WorkHellperIRG
 		int coutnTasksLineTasks = 0;
 		public int countWorkDay;
 		public string test;
-
+		public int countid = 0;
 
 
 		public static Form1 Instance;
@@ -42,6 +42,7 @@ namespace WorkHellperIRG
 		{
 			InitializeComponent();
 			Instance = this;
+			
 
 			Timer timer = new Timer();
 			timer.Interval = (timerNum * 1000); 
@@ -82,8 +83,8 @@ namespace WorkHellperIRG
 				DataEndTasksMyTasks();
 				DataEndTasksNewTasks();
 				DataEndTasksLineTasks();
-				await CountTasksWeek();
-				await CountTasksDay();
+				CountTasksWeekJson();
+				CountTasksDayJson();
 			}
 		}
 
@@ -248,7 +249,7 @@ namespace WorkHellperIRG
 		}
 		public async Task<string> ConnectAndPushUrlLineTasks()
 		{
-			urlISTasksLineTasks = $"task?fields=Id,Name,Deadline&filterid=3213&StatusIDs=31,95PageSize=300";
+			urlISTasksLineTasks = $"task?fields=Id,Name,Deadline&filterid=3213&StatusIDs=31,95&PageSize=300";
 
 			var result = string.Empty;
 			httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -375,6 +376,7 @@ namespace WorkHellperIRG
 
 			IList<JToken> tasks = tasksIS["Tasks"].Children().ToList();
 			IList<NewTask> task = new List<NewTask>();
+
 			foreach (JToken taskToken in tasks)
 			{
 				NewTask task1 = JsonConvert.DeserializeObject<NewTask>(taskToken.ToString());
@@ -383,43 +385,40 @@ namespace WorkHellperIRG
 
 			foreach (NewTask i in task)
 			{
-				MessageBoxButtons buttons = MessageBoxButtons.YesNo;
-				MessageBoxIcon iconMess = MessageBoxIcon.Warning;
-				DialogResult resultClicMessege;
+				if (i.Id == countid) return;
 				DateTime dtNow = DateTime.Now;
-				string NameMess = "Новая заявка";
 				string tempDateStart = i.Created;
 				DateTime dateTimeStart = DateTime.Parse(tempDateStart.ToString());
 				if (dtNow.Subtract(dateTimeStart).TotalMinutes < 2 & Convert.ToInt32(i.PriorityId) == 12)
 				{
 					string message = $"Приоритет КРИТИЧНЫЙ заявка № {i.Id}. Необходимо взять в работу в течении 15 минут. Выполнить в течении 4 часов! Открыть заявку?";
-					resultClicMessege = MessageBox.Show(message, NameMess, buttons, iconMess);
-					if (resultClicMessege == DialogResult.Yes) System.Diagnostics.Process.Start($"https://help.inventive.ru/Task/View/{i.Id}");
+					MessegeForm mf = new MessegeForm(i.Id, message);
+					mf.Show(this);
 				}
-				else if (dtNow.Subtract(dateTimeStart).TotalMinutes < 2 & Convert.ToInt32(i.PriorityId) == 10)
+				else if (dtNow.Subtract(dateTimeStart).TotalMinutes < 20 & Convert.ToInt32(i.PriorityId) == 10)
 				{
 					string message = $"Приоритет ВЫСОКИЙ заявка № {i.Id}. Необходимо взять в работу в течении 40 минут. Выполнить в течении 8 часов! Открыть заявку?";
-					resultClicMessege = MessageBox.Show(message, NameMess, buttons, iconMess);
-					if (resultClicMessege == DialogResult.Yes) System.Diagnostics.Process.Start($"https://help.inventive.ru/Task/View/{i.Id}");
+					MessegeForm mf = new MessegeForm(i.Id, message);
+					mf.Show(this);
+					
 				}
-
 				else if (dtNow.Subtract(dateTimeStart).TotalMinutes < 2 & Convert.ToInt32(i.PriorityId) == 9)
 				{
 					string message = $"Приоритет СРЕДНИЙ заявка № {i.Id}. Необходимо взять в работу в течении 4 часов. Выполнить в течении 48 часов! Открыть заявку?";
-					resultClicMessege = MessageBox.Show(message, NameMess, buttons, iconMess);
-					if (resultClicMessege == DialogResult.Yes) System.Diagnostics.Process.Start($"https://help.inventive.ru/Task/View/{i.Id}");
+					MessegeForm mf = new MessegeForm(i.Id, message);
+					mf.Show(this);
 				}
 				else if (dtNow.Subtract(dateTimeStart).TotalMinutes < 2 & Convert.ToInt32(i.PriorityId) == 11)
 				{
 					string message = $"Приоритет НИЗКИЙ заявка № {i.Id}. Необходимо взять в работу в течении 16 часов. Выполнить в течении 80 часов! Открыть заявку?";
-					resultClicMessege = MessageBox.Show(message, NameMess, buttons, iconMess);
-					if (resultClicMessege == DialogResult.Yes) System.Diagnostics.Process.Start($"https://help.inventive.ru/Task/View/{i.Id}");
+					MessegeForm mf = new MessegeForm(i.Id, message);
+					mf.Show(this);
 				}
 				else if (dtNow.Subtract(dateTimeStart).TotalMinutes > 10 & dtNow.Subtract(dateTimeStart).TotalMinutes < 12 & Convert.ToInt32(i.PriorityId) == 12)
 				{
 					string message = $"Приоритет КРИТИЧНЫЙ заявка № {i.Id}. Необходимо срочно взять в работу! Открыть заявку?";
-					resultClicMessege = MessageBox.Show(message, NameMess, buttons, iconMess);
-					if (resultClicMessege == DialogResult.Yes) System.Diagnostics.Process.Start($"https://help.inventive.ru/Task/View/{i.Id}");
+					MessegeForm mf = new MessegeForm(i.Id, message);
+					mf.Show(this);
 				}
 			}
 		}
