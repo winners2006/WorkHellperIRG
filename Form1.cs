@@ -176,24 +176,16 @@ namespace WorkHellperIRG
 			DateTime startOfWeek = dt.AddDays((((int)(dt.DayOfWeek) + 6) % 7) * -1);
 			DateTime dtstart = DateTime.Parse(startOfWeek.ToString());
 			string startW = dtstart.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
-			string urlCountTasks = $"https://help.inventive.ru/api/task?fields=Id&ResolutionDateFactMoreThan={startW}&ExecutorIds={idUser}&PageSize=300";
+			string urlCountTasks = $"task?fields=Id&ResolutionDateFactMoreThan={startW}&ExecutorIds={idUser}&PageSize=300";
 			var result = string.Empty;
-			try
+			httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+			var hesh = Convert.ToBase64String(Encoding.Default.GetBytes($"{emailIS}:{passwordIS}"));
+
+			using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, urlCountTasks))
 			{
-				using (HttpResponseMessage response = await httpClient.GetAsync(urlCountTasks).ConfigureAwait(false))
-				{
-					httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(Encoding.Default.GetBytes($"{emailIS}:{passwordIS}")));
-					response.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
-					response.EnsureSuccessStatusCode();
-					result = await response.Content.ReadAsStringAsync();
-					if ((int)response.StatusCode == 200) button2.BackColor = Color.Green;
-				}
-			}
-			catch (HttpRequestException e)
-			{
-				button2.BackColor = Color.Red;
-				Console.WriteLine("\nException Caught!");
-				Console.WriteLine("Message :{0} ", e.Message);
+				httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", hesh);
+				var response = await httpClient.GetAsync(urlCountTasks);
+				result = await response.Content.ReadAsStringAsync();
 			}
 			return result;
 		}
@@ -201,24 +193,16 @@ namespace WorkHellperIRG
 		{
 			DateTime dt = DateTime.Now;
 			string dayNow = dt.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
-			string urlCountTasks = $"https://help.inventive.ru/api/task?fields=Id&ResolutionDateFactMoreThan={dayNow}&ExecutorIds={idUser}&PageSize=100";
+			string urlCountTasks = $"task?fields=Id&ResolutionDateFactMoreThan={dayNow}&ExecutorIds={idUser}&PageSize=100";
 			var result = string.Empty;
-			try
+			httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+			var hesh = Convert.ToBase64String(Encoding.Default.GetBytes($"{emailIS}:{passwordIS}"));
+
+			using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, urlCountTasks))
 			{
-				using (HttpResponseMessage response = await httpClient.GetAsync(urlCountTasks).ConfigureAwait(false))
-				{
-					httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(Encoding.Default.GetBytes($"{emailIS}:{passwordIS}")));
-					response.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
-					response.EnsureSuccessStatusCode();
-					result = await response.Content.ReadAsStringAsync();
-					if ((int)response.StatusCode == 200) button2.BackColor = Color.Green;
-				}
-			}
-			catch (HttpRequestException e)
-			{
-				button2.BackColor = Color.Red;
-				Console.WriteLine("\nException Caught!");
-				Console.WriteLine("Message :{0} ", e.Message);
+				httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", hesh);
+				var response = await httpClient.GetAsync(urlCountTasks);
+				result = await response.Content.ReadAsStringAsync();
 			}
 			return result;
 		}
@@ -226,7 +210,7 @@ namespace WorkHellperIRG
 		public static HttpClient httpClient = new HttpClient()
 		{
 			
-			BaseAddress = new Uri("https://help.inventive.ru/api"),
+			BaseAddress = new Uri("https://help.inventive.ru/api/"),
 
 		};
 
@@ -235,93 +219,60 @@ namespace WorkHellperIRG
 			urlISTasksMyTasks = $"task?fields=Id,Name,Deadline&ExecutorIds={idUser}&StatusIDs=31,95";
 			
 			var result = string.Empty;
-			try
+			httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+			var hesh = Convert.ToBase64String(Encoding.Default.GetBytes($"{emailIS}:{passwordIS}"));
+
+			using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, urlISTasksMyTasks))
 			{
-				using (HttpResponseMessage response = await httpClient.GetAsync(urlISTasksMyTasks).ConfigureAwait(false))
-				{
-					httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(Encoding.Default.GetBytes($"{emailIS}:{passwordIS}")));
-					response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-					response.EnsureSuccessStatusCode();
-					result = await response.Content.ReadAsStringAsync();
-					if ((int)response.StatusCode == 200) button2.BackColor = Color.Green;
-				}
-			}
-			catch (HttpRequestException e)
-			{
-				button2.BackColor = Color.Red;
-				Console.WriteLine("\nException Caught!");
-				Console.WriteLine("Message :{0} ", e.Message);
+				httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", hesh);
+				var response = await httpClient.GetAsync(urlISTasksMyTasks);
+				result = await response.Content.ReadAsStringAsync();
 			}
 			return await Task.FromResult(result);
 		}
 		public async Task<string> ConnectAndPushUrlNewTasks()
 		{
-			urlISTasksNewTasks = $"https://help.inventive.ru/api/task?fields=Id,Name,Deadline,PriorityId,Created&filterid=3211&StatusIDs=31,95";
+			urlISTasksNewTasks = $"task?fields=Id,Name,Deadline,PriorityId,Created&filterid=3211&StatusIDs=31,95&PageSize=300";
 
 			var result = string.Empty;
-			try
+			httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+			var hesh = Convert.ToBase64String(Encoding.Default.GetBytes($"{emailIS}:{passwordIS}"));
+
+			using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, urlISTasksNewTasks))
 			{
-				using (HttpResponseMessage response = await httpClient.GetAsync(urlISTasksMyTasks).ConfigureAwait(false))
-				{
-					httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(Encoding.Default.GetBytes($"{emailIS}:{passwordIS}")));
-					response.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
-					response.EnsureSuccessStatusCode();
-					result = await response.Content.ReadAsStringAsync();
-					if ((int)response.StatusCode == 200) button2.BackColor = Color.Green;
-				}
-			}
-			catch (HttpRequestException e)
-			{
-				button2.BackColor = Color.Red;
-				Console.WriteLine("\nException Caught!");
-				Console.WriteLine("Message :{0} ", e.Message);
+				httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", hesh);
+				var response = await httpClient.GetAsync(urlISTasksNewTasks);
+				result = await response.Content.ReadAsStringAsync();
 			}
 			return await Task.FromResult(result);
 		}
 		public async Task<string> ConnectAndPushUrlLineTasks()
 		{
-			urlISTasksLineTasks = $"https://help.inventive.ru/api/task?fields=Id,Name,Deadline&filterid=3213&StatusIDs=31,95";
+			urlISTasksLineTasks = $"task?fields=Id,Name,Deadline&filterid=3213&StatusIDs=31,95PageSize=300";
 
 			var result = string.Empty;
-			try
-			{
-				using (HttpResponseMessage response = await httpClient.GetAsync(urlISTasksMyTasks).ConfigureAwait(false))
-				{
-					httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(Encoding.Default.GetBytes($"{emailIS}:{passwordIS}")));
+			httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+			var hesh = Convert.ToBase64String(Encoding.Default.GetBytes($"{emailIS}:{passwordIS}"));
 
-					response.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
-					response.EnsureSuccessStatusCode();
-					result = await response.Content.ReadAsStringAsync();
-					if ((int)response.StatusCode == 200) button2.BackColor = Color.Green;
-				}
-			}
-			catch (HttpRequestException e)
+			using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, urlISTasksLineTasks))
 			{
-				button2.BackColor = Color.Red;
-				Console.WriteLine("\nException Caught!");
-				Console.WriteLine("Message :{0} ", e.Message);
+				httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", hesh);
+				var response = await httpClient.GetAsync(urlISTasksLineTasks);
+				result = await response.Content.ReadAsStringAsync();
 			}
 			return result;
 		}
 		public async Task<string> ConnectAndPushUrl()
 		{
 			var result = string.Empty;
-			try
+			httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+			var hesh = Convert.ToBase64String(Encoding.Default.GetBytes($"{emailIS}:{passwordIS}"));
+
+			using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, urlISTasksLineTasks))
 			{
-				using (HttpResponseMessage response = await httpClient.GetAsync(urlISTasksMyTasks).ConfigureAwait(false))
-				{
-					httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(Encoding.Default.GetBytes($"{emailIS}:{passwordIS}")));
-					response.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
-					response.EnsureSuccessStatusCode();
-					result = await response.Content.ReadAsStringAsync();
-					if ((int)response.StatusCode == 200) button2.BackColor = Color.Green;
-				}
-			}
-			catch (HttpRequestException e)
-			{
-				button2.BackColor = Color.Red;
-				Console.WriteLine("\nException Caught!");
-				Console.WriteLine("Message :{0} ", e.Message);
+				httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", hesh);
+				var response = await httpClient.GetAsync(urlISTasksLineTasks);
+				result = await response.Content.ReadAsStringAsync();
 			}
 			return result;
 		}

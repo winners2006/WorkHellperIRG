@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Google.Apis.Sheets.v4.Data;
 using Newtonsoft.Json;
+using static System.Net.Mime.MediaTypeNames;
+using Color = System.Drawing.Color;
 
 
 
@@ -39,46 +41,34 @@ namespace WorkHellperIRG
 			BaseAddress = new Uri("https://help.inventive.ru/api/"),
 
 		};
-		public async Task<string> ConnectUser()
-		{
-			emailIS = textBox1.Text;
-			passwordIS = textBox2.Text;
-			string urlISUser = "user?getcurrentuserinfo=true";
-			var result = string.Empty;
-			try
-			{
-				using (HttpResponseMessage response = await сlient.GetAsync(urlISUser))
-				{
-					сlient.DefaultRequestHeaders.Add($"Basic {Convert.ToBase64String(Encoding.Default.GetBytes($"{emailIS}:{passwordIS}"))}","");
-					response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-					response.EnsureSuccessStatusCode();
-					result = await response.Content.ReadAsStringAsync();
-					if ((int)response.StatusCode == 200) button1.BackColor = System.Drawing.Color.Green;
-				}
-			}
-			catch (HttpRequestException e)
-			{
-				button1.BackColor = System.Drawing.Color.Red;
-				Console.WriteLine("\nException Caught!");
-				MessageBox.Show($"Message {e.Message} ", "\nException Caught!", MessageBoxButtons.OK);
-			}
-			return await Task.FromResult(result);
-		}
+		
 		
 		public async void buttonEnterIS(object sender, EventArgs e)
 		{
-			string resjson = await ConnectUser();
-			
+			emailIS = textBox1.Text;
+			passwordIS = textBox2.Text;
 			if (emailIS == "") { MessageBox.Show("Введите Ваш логин!", "Ошибка", MessageBoxButtons.OK); return; }
 			if (passwordIS == "") { MessageBox.Show("Введите Ваш пароль!", "Ошибка", MessageBoxButtons.OK); return; }
-			
+			string urlISUser = "user?getcurrentuserinfo=true";
+			var result = string.Empty;
+			сlient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+			var hesh = Convert.ToBase64String(Encoding.Default.GetBytes($"{emailIS}:{passwordIS}"));
 
-			User jsonUser = JsonConvert.DeserializeObject<User>(resjson);
-			Properties.Settings.Default.userName = jsonUser.Name;
-			Properties.Settings.Default.userNameId = jsonUser.Id;
-			Properties.Settings.Default.emailIS = emailIS;
-			Properties.Settings.Default.passIS = passwordIS;
-			Properties.Settings.Default.Save();
+			using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, urlISUser))
+			{
+				сlient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", hesh);
+				var response = await сlient.GetAsync(urlISUser);
+				response.EnsureSuccessStatusCode();
+				if ((int)response.StatusCode == 200) button1.BackColor = Color.Green;
+				else button1.BackColor = Color.Red;
+				var tempresult = await response.Content.ReadAsStringAsync();
+				User jsonUser = JsonConvert.DeserializeObject<User>(tempresult);
+				Properties.Settings.Default.userName = jsonUser.Name;
+				Properties.Settings.Default.userNameId = jsonUser.Id;
+				Properties.Settings.Default.emailIS = emailIS;
+				Properties.Settings.Default.passIS = passwordIS;
+				Properties.Settings.Default.Save();
+			}
 		}
 
 		public void buttonEnterGoogle(object sender, EventArgs e)
