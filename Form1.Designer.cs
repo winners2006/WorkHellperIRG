@@ -51,6 +51,7 @@ namespace WorkHellperIRG
 			this.Id = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.DataEnd = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.idUserSend = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.button3 = new System.Windows.Forms.Button();
 			this.button4 = new System.Windows.Forms.Button();
 			this.button5 = new System.Windows.Forms.Button();
@@ -62,7 +63,6 @@ namespace WorkHellperIRG
 			this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-			this.label16 = new System.Windows.Forms.Label();
 			this.panel1.SuspendLayout();
 			this.panel3.SuspendLayout();
 			this.panel2.SuspendLayout();
@@ -70,7 +70,8 @@ namespace WorkHellperIRG
 			// 
 			// button1
 			// 
-			this.button1.Location = new System.Drawing.Point(785, 5);
+			this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.button1.Location = new System.Drawing.Point(780, 5);
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(91, 36);
 			this.button1.TabIndex = 1;
@@ -80,17 +81,19 @@ namespace WorkHellperIRG
 			// 
 			// monthCalendar1
 			// 
-			this.monthCalendar1.Location = new System.Drawing.Point(785, 79);
+			this.monthCalendar1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.monthCalendar1.Location = new System.Drawing.Point(780, 79);
 			this.monthCalendar1.Name = "monthCalendar1";
 			this.monthCalendar1.TabIndex = 4;
 			// 
 			// panel1
 			// 
+			this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.panel1.Controls.Add(this.label4);
 			this.panel1.Controls.Add(this.label3);
 			this.panel1.Controls.Add(this.label2);
 			this.panel1.Controls.Add(this.label1);
-			this.panel1.Location = new System.Drawing.Point(548, 79);
+			this.panel1.Location = new System.Drawing.Point(543, 79);
 			this.panel1.Name = "panel1";
 			this.panel1.Size = new System.Drawing.Size(225, 107);
 			this.panel1.TabIndex = 5;
@@ -133,12 +136,13 @@ namespace WorkHellperIRG
 			// 
 			// panel3
 			// 
+			this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.panel3.Controls.Add(this.label13);
 			this.panel3.Controls.Add(this.label12);
 			this.panel3.Controls.Add(this.label11);
 			this.panel3.Controls.Add(this.label10);
 			this.panel3.Controls.Add(this.label9);
-			this.panel3.Location = new System.Drawing.Point(548, 305);
+			this.panel3.Location = new System.Drawing.Point(543, 305);
 			this.panel3.Name = "panel3";
 			this.panel3.Size = new System.Drawing.Size(225, 99);
 			this.panel3.TabIndex = 7;
@@ -190,11 +194,12 @@ namespace WorkHellperIRG
 			// 
 			// panel2
 			// 
+			this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.panel2.Controls.Add(this.label5);
 			this.panel2.Controls.Add(this.label6);
 			this.panel2.Controls.Add(this.label7);
 			this.panel2.Controls.Add(this.label8);
-			this.panel2.Location = new System.Drawing.Point(548, 192);
+			this.panel2.Location = new System.Drawing.Point(543, 192);
 			this.panel2.Name = "panel2";
 			this.panel2.Size = new System.Drawing.Size(225, 107);
 			this.panel2.TabIndex = 6;
@@ -246,8 +251,9 @@ namespace WorkHellperIRG
 			// 
 			// label15
 			// 
+			this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.label15.AutoSize = true;
-			this.label15.Location = new System.Drawing.Point(571, 15);
+			this.label15.Location = new System.Drawing.Point(566, 15);
 			this.label15.Name = "label15";
 			this.label15.Size = new System.Drawing.Size(168, 16);
 			this.label15.TabIndex = 9;
@@ -266,16 +272,20 @@ namespace WorkHellperIRG
 			// listView1
 			// 
 			this.listView1.AllowColumnReorder = true;
+			this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.Id,
             this.name,
-            this.DataEnd});
+            this.DataEnd,
+            this.idUserSend});
 			this.listView1.FullRowSelect = true;
 			this.listView1.HideSelection = false;
 			this.listView1.Location = new System.Drawing.Point(4, 79);
 			this.listView1.Name = "listView1";
 			this.listView1.ShowItemToolTips = true;
-			this.listView1.Size = new System.Drawing.Size(541, 325);
+			this.listView1.Size = new System.Drawing.Size(536, 326);
 			this.listView1.TabIndex = 11;
 			this.listView1.UseCompatibleStateImageBehavior = false;
 			this.listView1.View = System.Windows.Forms.View.Details;
@@ -295,6 +305,10 @@ namespace WorkHellperIRG
 			// 
 			this.DataEnd.Text = "DataEnd";
 			this.DataEnd.Width = 107;
+			// 
+			// idUserSend
+			// 
+			this.idUserSend.Text = "IdUser";
 			// 
 			// button3
 			// 
@@ -329,6 +343,9 @@ namespace WorkHellperIRG
 			// listView2
 			// 
 			this.listView2.AllowColumnReorder = true;
+			this.listView2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.listView2.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2,
@@ -338,7 +355,7 @@ namespace WorkHellperIRG
 			this.listView2.Location = new System.Drawing.Point(4, 79);
 			this.listView2.Name = "listView2";
 			this.listView2.ShowItemToolTips = true;
-			this.listView2.Size = new System.Drawing.Size(541, 325);
+			this.listView2.Size = new System.Drawing.Size(536, 326);
 			this.listView2.TabIndex = 15;
 			this.listView2.UseCompatibleStateImageBehavior = false;
 			this.listView2.View = System.Windows.Forms.View.Details;
@@ -362,6 +379,9 @@ namespace WorkHellperIRG
 			// listView3
 			// 
 			this.listView3.AllowColumnReorder = true;
+			this.listView3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.listView3.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader4,
             this.columnHeader5,
@@ -371,7 +391,7 @@ namespace WorkHellperIRG
 			this.listView3.Location = new System.Drawing.Point(4, 79);
 			this.listView3.Name = "listView3";
 			this.listView3.ShowItemToolTips = true;
-			this.listView3.Size = new System.Drawing.Size(541, 325);
+			this.listView3.Size = new System.Drawing.Size(533, 326);
 			this.listView3.TabIndex = 16;
 			this.listView3.UseCompatibleStateImageBehavior = false;
 			this.listView3.View = System.Windows.Forms.View.Details;
@@ -392,19 +412,9 @@ namespace WorkHellperIRG
 			this.columnHeader6.Text = "DataEnd";
 			this.columnHeader6.Width = 107;
 			// 
-			// label16
-			// 
-			this.label16.AutoSize = true;
-			this.label16.Location = new System.Drawing.Point(782, 295);
-			this.label16.Name = "label16";
-			this.label16.Size = new System.Drawing.Size(96, 16);
-			this.label16.TabIndex = 9;
-			this.label16.Text = "Выполненые: ";
-			// 
 			// Form1
 			// 
-			this.ClientSize = new System.Drawing.Size(990, 412);
-			this.Controls.Add(this.label16);
+			this.ClientSize = new System.Drawing.Size(984, 425);
 			this.Controls.Add(this.listView3);
 			this.Controls.Add(this.listView2);
 			this.Controls.Add(this.button5);
@@ -468,7 +478,7 @@ namespace WorkHellperIRG
 		private ColumnHeader columnHeader4;
 		private ColumnHeader columnHeader5;
 		private ColumnHeader columnHeader6;
-		private Label label16;
+		private ColumnHeader idUserSend;
 	}
 
 	

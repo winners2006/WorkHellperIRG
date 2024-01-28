@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Text;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -34,6 +35,7 @@ namespace WorkHellperIRG
 		public int countWorkDay;
 		public string test;
 		public int countid = 0;
+		public int countidMess = 0;
 
 
 		public static Form1 Instance;
@@ -56,7 +58,6 @@ namespace WorkHellperIRG
 			listView3.Hide();
 
 			label10.Text = $"Количество рабочих дней: {countWorkDay}";
-			label16.Text = test;
 		}
 
 
@@ -79,12 +80,9 @@ namespace WorkHellperIRG
 
 				MessengeTasks();
 
-				timerNum = Properties.Settings.Default.timer;
-				DataEndTasksMyTasks();
-				DataEndTasksNewTasks();
-				DataEndTasksLineTasks();
 				CountTasksWeekJson();
 				CountTasksDayJson();
+				timerNum = Properties.Settings.Default.timer;
 			}
 		}
 
@@ -217,7 +215,7 @@ namespace WorkHellperIRG
 
 		public async Task<string> ConnectAndPushUrlMyTasks()
 		{
-			urlISTasksMyTasks = $"task?fields=Id,Name,Deadline&ExecutorIds={idUser}&StatusIDs=31,95";
+			urlISTasksMyTasks = $"task?fields=Id,Name,Deadline,EditorId&ExecutorIds={idUser}&StatusIDs=31,95";
 			
 			var result = string.Empty;
 			httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -228,6 +226,8 @@ namespace WorkHellperIRG
 				httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", hesh);
 				var response = await httpClient.GetAsync(urlISTasksMyTasks);
 				result = await response.Content.ReadAsStringAsync();
+				if (response.StatusCode == HttpStatusCode.OK) button2.BackColor = Color.Green;
+				else result = string.Empty;
 			}
 			return await Task.FromResult(result);
 		}
@@ -244,6 +244,8 @@ namespace WorkHellperIRG
 				httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", hesh);
 				var response = await httpClient.GetAsync(urlISTasksNewTasks);
 				result = await response.Content.ReadAsStringAsync();
+				if (response.StatusCode == HttpStatusCode.OK) button2.BackColor = Color.Green;
+				else result = string.Empty;
 			}
 			return await Task.FromResult(result);
 		}
@@ -260,6 +262,8 @@ namespace WorkHellperIRG
 				httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", hesh);
 				var response = await httpClient.GetAsync(urlISTasksLineTasks);
 				result = await response.Content.ReadAsStringAsync();
+				if (response.StatusCode == HttpStatusCode.OK) button2.BackColor = Color.Green;
+				else result = string.Empty;
 			}
 			return result;
 		}
@@ -274,6 +278,8 @@ namespace WorkHellperIRG
 				httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", hesh);
 				var response = await httpClient.GetAsync(urlISTasksLineTasks);
 				result = await response.Content.ReadAsStringAsync();
+				if (response.StatusCode == HttpStatusCode.OK) button2.BackColor = Color.Green;
+				else result = string.Empty;
 			}
 			return result;
 		}
@@ -298,15 +304,16 @@ namespace WorkHellperIRG
 				{
 					string temp = item.Deadline.ToString();
 					string dateEnd = temp.Replace("T", " ");
-					ListViewItem item2 = new ListViewItem(new string[] { item.Id.ToString(), item.Name, dateEnd });
+					ListViewItem item2 = new ListViewItem(new string[] { item.Id.ToString(), item.Name, dateEnd, item.EditorId });
 					listView1.Items.Add(item2);
 				}
 				else
 				{
-					ListViewItem item2 = new ListViewItem(new string[] { item.Id.ToString(), item.Name, item.Deadline });
+					ListViewItem item2 = new ListViewItem(new string[] { item.Id.ToString(), item.Name, item.Deadline, item.EditorId });
 					listView1.Items.Add(item2);
 				}
 			}
+			DataEndTasksMyTasks();
 		}
 		public async void TasksToTableNewTasks()
 		{
@@ -337,6 +344,7 @@ namespace WorkHellperIRG
 					listView2.Items.Add(item2);
 				}
 			}
+			DataEndTasksNewTasks();
 		}
 		public async void TasksToTableLineTasks()
 		{
@@ -367,6 +375,7 @@ namespace WorkHellperIRG
 					listView3.Items.Add(item2);
 				}
 			}
+			DataEndTasksLineTasks();
 		}
 
 		public async void MessengeTasks()
@@ -395,7 +404,7 @@ namespace WorkHellperIRG
 					MessegeForm mf = new MessegeForm(i.Id, message);
 					mf.Show(this);
 				}
-				else if (dtNow.Subtract(dateTimeStart).TotalMinutes < 20 & Convert.ToInt32(i.PriorityId) == 10)
+				else if (dtNow.Subtract(dateTimeStart).TotalMinutes < 2 & Convert.ToInt32(i.PriorityId) == 10)
 				{
 					string message = $"Приоритет ВЫСОКИЙ заявка № {i.Id}. Необходимо взять в работу в течении 40 минут. Выполнить в течении 8 часов! Открыть заявку?";
 					MessegeForm mf = new MessegeForm(i.Id, message);
@@ -471,6 +480,7 @@ namespace WorkHellperIRG
 		{
 			foreach (ListViewItem item in listView1.Items)
 			{
+				int idTaskTemp = Convert.ToInt32(item.SubItems[0].Text);
 				if (item.SubItems[2] != null && item.SubItems[2].Text != "")
 				{
 					string tempDateTime = item.SubItems[2].Text;
@@ -482,6 +492,14 @@ namespace WorkHellperIRG
 					else if (dateTimeEnd.Subtract(DateTime.Now).TotalMinutes < 1440)
 					{
 						item.BackColor = Color.Orange;
+					}
+				}
+				
+				if (item.SubItems[3] != null && item.SubItems[3].Text != "")
+				{
+					if (Convert.ToInt32(item.SubItems[3].Text) != Convert.ToInt32(idUser))
+					{
+						item.BackColor = Color.Green;
 					}
 				}
 			}
@@ -533,6 +551,7 @@ namespace WorkHellperIRG
 			public string Deadline { get; set; }
 			public string PriorityId { get; set; }
 			public string Created {  get; set; }
+			public string EditorId {  get; set; }
 		}
 		public class NewTask
 		{
