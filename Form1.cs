@@ -51,6 +51,7 @@ namespace WorkHellperIRG
 			listView2.Hide();
 			listView3.Hide();
 
+			Update();
 		}
 
 
