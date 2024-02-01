@@ -49,6 +49,7 @@ namespace WorkHellperIRG
 			listView3.Hide();
 
 			Update();
+			UpdateCloseTasks();
 		}
 
 		public void TimerTasks()
@@ -61,14 +62,18 @@ namespace WorkHellperIRG
 		public void TimerCloseTasks()
 		{
 			Timer timer = new Timer();
-			timer.Interval = (90 * 1000);
-			timer.Tick += new EventHandler(TimerTasksTick);
+			timer.Interval = (3600 * 1000);
+			timer.Tick += new EventHandler(TimerCloseTasksTick);
 			timer.Start();
 		}
 
 		private void TimerTasksTick(object sender, EventArgs e)
 		{
 			UpdateTasks();
+		}
+		private void TimerCloseTasksTick(object sender, EventArgs e)
+		{
+			UpdateCloseTasks();
 		}
 
 		public void UpdateTasks()
@@ -84,10 +89,12 @@ namespace WorkHellperIRG
 				TasksToTableLineTasks();
 
 				MessengeTasks();
-
-				CountTasksWeekJson();
-				CountTasksDayJson();
 			}
+		}
+		private void UpdateCloseTasks() 
+		{
+			CountTasksWeekJson();
+			CountTasksDayJson();
 		}
 
 		private void buttonEnter(object sender, EventArgs e)
@@ -98,6 +105,7 @@ namespace WorkHellperIRG
 		public void buttonUpdate(object sender, EventArgs e)
 		{
 			UpdateTasks();
+			UpdateCloseTasks();
 		}
 		private void buttonMyTasks(object sender, EventArgs e)
 		{
