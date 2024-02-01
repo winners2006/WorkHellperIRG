@@ -40,10 +40,7 @@ namespace WorkHellperIRG
 			Instance = this;
 			
 
-			Timer timer = new Timer();
-			timer.Interval = (90 * 1000); 
-			timer.Tick += new EventHandler(Timer_Tick);
-			timer.Start();
+			
 
 			label15.Text = Properties.Settings.Default.userName;
 
@@ -54,8 +51,22 @@ namespace WorkHellperIRG
 			Update();
 		}
 
+		public void TimerTasks()
+		{
+			Timer timer = new Timer();
+			timer.Interval = (90 * 1000);
+			timer.Tick += new EventHandler(TimerTasksTick);
+			timer.Start();
+		}
+		public void TimerCloseTasks()
+		{
+			Timer timer = new Timer();
+			timer.Interval = (90 * 1000);
+			timer.Tick += new EventHandler(TimerTasksTick);
+			timer.Start();
+		}
 
-		private void Timer_Tick(object sender, EventArgs e)
+		private void TimerTasksTick(object sender, EventArgs e)
 		{
 			UpdateTasks();
 		}
@@ -292,7 +303,7 @@ namespace WorkHellperIRG
 					}
 				}
 			}
-			catch { Update(); }
+			catch { Application.Restart(); }
 			DataEndTasksMyTasks();
 		}
 		public async void TasksToTableNewTasks()
@@ -326,7 +337,7 @@ namespace WorkHellperIRG
 						listView2.Items.Add(item2);
 					}
 				}
-			} catch { Update(); }
+			} catch { Application.Restart(); }
 			DataEndTasksNewTasks();
 		}
 		public async void TasksToTableLineTasks()
@@ -361,7 +372,7 @@ namespace WorkHellperIRG
 					}
 				}
 			}
-			catch { Update(); }
+			catch { Application.Restart(); }
 			DataEndTasksLineTasks();
 		}
 
@@ -431,7 +442,7 @@ namespace WorkHellperIRG
 				}
 				label2.Text = $"Выполненые: {countWeek}";
 			}
-			catch { Update(); }
+			catch { Application.Restart(); }
 		}
 		public async void CountTasksDayJson()
 		{
@@ -454,7 +465,7 @@ namespace WorkHellperIRG
 				}
 				label7.Text = $"Выполненые: {countDay}";
 			} 
-			catch { Update(); }
+			catch { Application.Restart(); }
 		}
 
 		public void DataEndTasksMyTasks()
