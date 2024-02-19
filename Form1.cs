@@ -30,6 +30,7 @@ namespace WorkHellperIRG
 		public string test;
 		public int countid = 0;
 		public int countidMess = 0;
+		int tasksType = 1;
 
 
 		public static Form1 Instance;
@@ -311,7 +312,7 @@ namespace WorkHellperIRG
 					}
 				}
 			}
-			catch { Application.Restart(); }
+			catch { UpdateTasks(); }
 			DataEndTasksMyTasks();
 		}
 		public async void TasksToTableNewTasks()
@@ -345,7 +346,7 @@ namespace WorkHellperIRG
 						listView2.Items.Add(item2);
 					}
 				}
-			} catch { Application.Restart(); }
+			} catch { UpdateTasks(); }
 			DataEndTasksNewTasks();
 		}
 		public async void TasksToTableLineTasks()
@@ -380,7 +381,7 @@ namespace WorkHellperIRG
 					}
 				}
 			}
-			catch { Application.Restart(); }
+			catch { UpdateTasks(); }
 			DataEndTasksLineTasks();
 		}
 
@@ -450,7 +451,7 @@ namespace WorkHellperIRG
 				}
 				label2.Text = $"Выполненые: {countWeek}";
 			}
-			catch { Application.Restart(); }
+			catch { UpdateTasks(); }
 		}
 		public async void CountTasksDayJson()
 		{
@@ -473,7 +474,7 @@ namespace WorkHellperIRG
 				}
 				label7.Text = $"Выполненые: {countDay}";
 			} 
-			catch { Application.Restart(); }
+			catch { UpdateTasks(); }
 		}
 
 		public void DataEndTasksMyTasks()
