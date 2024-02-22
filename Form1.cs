@@ -53,6 +53,7 @@ namespace WorkHellperIRG
 			UpdateCloseTasks();
 		}
 
+		//Таймер обновления списка заявок
 		public void TimerTasks()
 		{
 			Timer timer = new Timer();
@@ -60,6 +61,11 @@ namespace WorkHellperIRG
 			timer.Tick += new EventHandler(TimerTasksTick);
 			timer.Start();
 		}
+		private void TimerTasksTick(object sender, EventArgs e)
+		{
+			UpdateTasks();
+		}
+		//Таймер обновления кол-ва выполненых заявок
 		public void TimerCloseTasks()
 		{
 			Timer timer = new Timer();
@@ -67,16 +73,12 @@ namespace WorkHellperIRG
 			timer.Tick += new EventHandler(TimerCloseTasksTick);
 			timer.Start();
 		}
-
-		private void TimerTasksTick(object sender, EventArgs e)
-		{
-			UpdateTasks();
-		}
 		private void TimerCloseTasksTick(object sender, EventArgs e)
 		{
 			UpdateCloseTasks();
 		}
 
+		//Обновление списка заявок
 		public void UpdateTasks()
 		{
 			if (emailIS != null && emailIS != "" && passwordIS != null && passwordIS != "")
@@ -92,11 +94,13 @@ namespace WorkHellperIRG
 				MessengeTasks();
 			}
 		}
+		//Обновление выполненых заявок
 		private void UpdateCloseTasks() 
 		{
 			CountTasksWeekJson();
 			CountTasksDayJson();
 		}
+
 
 		private void buttonEnter(object sender, EventArgs e)
 		{
@@ -133,6 +137,7 @@ namespace WorkHellperIRG
 			label14.Text = $"Задач в работе: {coutnTasksLineTasks}";
 		}
 
+		//Обработка нажатия на заявку
 		private void listView1_DoubleClick(object sender, EventArgs e)
 		{
 			try
@@ -142,7 +147,7 @@ namespace WorkHellperIRG
 				ListViewItem item = listView1.SelectedItems[0];
 				string temp = item.ToString().Remove(0, 15);
 				string temp2 = temp.TrimEnd(new char[] { '}' });
-				System.Diagnostics.Process.Start($"https://help.inventive.ru/Task/View/{temp2}");
+				System.Diagnostics.Process.Start($"https://intraservice.ru/Task/View/{temp2}");
 			}
 			catch (Exception ex)
 			{
@@ -158,7 +163,7 @@ namespace WorkHellperIRG
 				ListViewItem item = listView2.SelectedItems[0];
 				string temp = item.ToString().Remove(0, 15);
 				string temp2 = temp.TrimEnd(new char[] { '}' });
-				System.Diagnostics.Process.Start($"https://help.inventive.ru/Task/View/{temp2}");
+				System.Diagnostics.Process.Start($"https://intraservice.ru/Task/View/{temp2}");
 			}
 			catch (Exception ex)
 			{
@@ -174,7 +179,7 @@ namespace WorkHellperIRG
 				ListViewItem item = listView3.SelectedItems[0];
 				string temp = item.ToString().Remove(0, 15);
 				string temp2 = temp.TrimEnd(new char[] { '}' });
-				System.Diagnostics.Process.Start($"https://help.inventive.ru/Task/View/{temp2}");
+				System.Diagnostics.Process.Start($"https://intraservice.ru/Task/View/{temp2}");
 			}
 			catch (Exception ex)
 			{
@@ -182,13 +187,15 @@ namespace WorkHellperIRG
 			}
 		}
 
+		//Адрес подключения
 		public static HttpClient httpClient = new HttpClient()
 		{
 			
-			BaseAddress = new Uri("https://help.inventive.ru/api/"),
+			BaseAddress = new Uri("https://intraservice.ru/api/"),
 
 		};
 
+		//Получение списка заявок назначенных на пользователя
 		public async Task<string> ConnectAndPushUrlMyTasks()
 		{
 			urlISTasksMyTasks = $"task?fields=Id,Name,Deadline,EditorId&ExecutorIds={idUser}&StatusIDs=31,95,27";
@@ -207,6 +214,7 @@ namespace WorkHellperIRG
 			}
 			return await Task.FromResult(result);
 		}
+		//Получение списка заявок по Фильтрам
 		public async Task<string> ConnectAndPushUrlNewTasks()
 		{
 			urlISTasksNewTasks = $"task?fields=Id,Name,Deadline,PriorityId,Created&filterid=3211&StatusIDs=31,95&PageSize=300";
@@ -225,6 +233,7 @@ namespace WorkHellperIRG
 			}
 			return await Task.FromResult(result);
 		}
+		//Получение списка заявок по Фильтрам
 		public async Task<string> ConnectAndPushUrlLineTasks()
 		{
 			urlISTasksLineTasks = $"task?fields=Id,Name,Deadline&filterid=3213&StatusIDs=31,95&PageSize=300";
@@ -243,6 +252,7 @@ namespace WorkHellperIRG
 			}
 			return result;
 		}
+		//Получение списка выполненых заявок
 		public async Task<string> CountTasksWeek()
 		{
 			DateTime dt = DateTime.Now;
@@ -280,6 +290,7 @@ namespace WorkHellperIRG
 			return result;
 		}
 
+		//Обработка полученных запросов
 		public async void TasksToTableMyTasks()
 		{
 			try
@@ -385,6 +396,7 @@ namespace WorkHellperIRG
 			DataEndTasksLineTasks();
 		}
 
+		//Оповещение о новых заявках
 		public void MessengeTasks()
 		{
 			foreach (ListViewItem i in listView2.Items)
@@ -429,6 +441,7 @@ namespace WorkHellperIRG
 			}
 		}
 
+		//подсчет выполненых заявок
 		public async void CountTasksWeekJson()
 		{
 
@@ -477,6 +490,7 @@ namespace WorkHellperIRG
 			catch { UpdateTasks(); }
 		}
 
+		//Обработка времени жизни заявки
 		public void DataEndTasksMyTasks()
 		{
 			foreach (ListViewItem item in listView1.Items)

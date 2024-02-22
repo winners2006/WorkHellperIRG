@@ -27,7 +27,6 @@ namespace WorkHellperIRG
 		private void InitializeComponent()
 		{
 			this.button1 = new System.Windows.Forms.Button();
-			this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.label4 = new System.Windows.Forms.Label();
 			this.label3 = new System.Windows.Forms.Label();
@@ -71,20 +70,13 @@ namespace WorkHellperIRG
 			// button1
 			// 
 			this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.button1.Location = new System.Drawing.Point(780, 5);
+			this.button1.Location = new System.Drawing.Point(711, 5);
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(91, 36);
 			this.button1.TabIndex = 1;
 			this.button1.Text = "Настройки";
 			this.button1.UseVisualStyleBackColor = true;
 			this.button1.Click += new System.EventHandler(this.buttonEnter);
-			// 
-			// monthCalendar1
-			// 
-			this.monthCalendar1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.monthCalendar1.Location = new System.Drawing.Point(780, 79);
-			this.monthCalendar1.Name = "monthCalendar1";
-			this.monthCalendar1.TabIndex = 4;
 			// 
 			// panel1
 			// 
@@ -93,7 +85,7 @@ namespace WorkHellperIRG
 			this.panel1.Controls.Add(this.label3);
 			this.panel1.Controls.Add(this.label2);
 			this.panel1.Controls.Add(this.label1);
-			this.panel1.Location = new System.Drawing.Point(543, 79);
+			this.panel1.Location = new System.Drawing.Point(627, 81);
 			this.panel1.Name = "panel1";
 			this.panel1.Size = new System.Drawing.Size(225, 107);
 			this.panel1.TabIndex = 5;
@@ -142,7 +134,7 @@ namespace WorkHellperIRG
 			this.panel3.Controls.Add(this.label11);
 			this.panel3.Controls.Add(this.label10);
 			this.panel3.Controls.Add(this.label9);
-			this.panel3.Location = new System.Drawing.Point(543, 305);
+			this.panel3.Location = new System.Drawing.Point(627, 307);
 			this.panel3.Name = "panel3";
 			this.panel3.Size = new System.Drawing.Size(225, 99);
 			this.panel3.TabIndex = 7;
@@ -199,7 +191,7 @@ namespace WorkHellperIRG
 			this.panel2.Controls.Add(this.label6);
 			this.panel2.Controls.Add(this.label7);
 			this.panel2.Controls.Add(this.label8);
-			this.panel2.Location = new System.Drawing.Point(543, 192);
+			this.panel2.Location = new System.Drawing.Point(627, 194);
 			this.panel2.Name = "panel2";
 			this.panel2.Size = new System.Drawing.Size(225, 107);
 			this.panel2.TabIndex = 6;
@@ -253,7 +245,7 @@ namespace WorkHellperIRG
 			// 
 			this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.label15.AutoSize = true;
-			this.label15.Location = new System.Drawing.Point(566, 15);
+			this.label15.Location = new System.Drawing.Point(497, 15);
 			this.label15.Name = "label15";
 			this.label15.Size = new System.Drawing.Size(168, 16);
 			this.label15.TabIndex = 9;
@@ -285,7 +277,7 @@ namespace WorkHellperIRG
 			this.listView1.Location = new System.Drawing.Point(4, 79);
 			this.listView1.Name = "listView1";
 			this.listView1.ShowItemToolTips = true;
-			this.listView1.Size = new System.Drawing.Size(536, 326);
+			this.listView1.Size = new System.Drawing.Size(570, 356);
 			this.listView1.TabIndex = 11;
 			this.listView1.UseCompatibleStateImageBehavior = false;
 			this.listView1.View = System.Windows.Forms.View.Details;
@@ -355,7 +347,7 @@ namespace WorkHellperIRG
 			this.listView2.Location = new System.Drawing.Point(4, 79);
 			this.listView2.Name = "listView2";
 			this.listView2.ShowItemToolTips = true;
-			this.listView2.Size = new System.Drawing.Size(536, 326);
+			this.listView2.Size = new System.Drawing.Size(570, 356);
 			this.listView2.TabIndex = 15;
 			this.listView2.UseCompatibleStateImageBehavior = false;
 			this.listView2.View = System.Windows.Forms.View.Details;
@@ -391,7 +383,7 @@ namespace WorkHellperIRG
 			this.listView3.Location = new System.Drawing.Point(4, 79);
 			this.listView3.Name = "listView3";
 			this.listView3.ShowItemToolTips = true;
-			this.listView3.Size = new System.Drawing.Size(533, 326);
+			this.listView3.Size = new System.Drawing.Size(567, 356);
 			this.listView3.TabIndex = 16;
 			this.listView3.UseCompatibleStateImageBehavior = false;
 			this.listView3.View = System.Windows.Forms.View.Details;
@@ -414,7 +406,7 @@ namespace WorkHellperIRG
 			// 
 			// Form1
 			// 
-			this.ClientSize = new System.Drawing.Size(984, 425);
+			this.ClientSize = new System.Drawing.Size(1018, 455);
 			this.Controls.Add(this.listView3);
 			this.Controls.Add(this.listView2);
 			this.Controls.Add(this.button5);
@@ -427,7 +419,6 @@ namespace WorkHellperIRG
 			this.Controls.Add(this.panel2);
 			this.Controls.Add(this.panel3);
 			this.Controls.Add(this.panel1);
-			this.Controls.Add(this.monthCalendar1);
 			this.Controls.Add(this.button1);
 			this.Name = "Form1";
 			this.panel1.ResumeLayout(false);
@@ -443,7 +434,6 @@ namespace WorkHellperIRG
 
 		#endregion
 		private System.Windows.Forms.Button button1;
-		private System.Windows.Forms.MonthCalendar monthCalendar1;
 		private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.Panel panel3;
 		private System.Windows.Forms.Label label1;

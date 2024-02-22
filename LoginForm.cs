@@ -10,6 +10,7 @@ using Color = System.Drawing.Color;
 
 namespace WorkHellperIRG
 {
+	//Подключение к Шнтрасервис по логину и паролю пользователя
 	public partial class LoginForm : Form
 	{
 
@@ -30,7 +31,7 @@ namespace WorkHellperIRG
 		public static HttpClient сlient = new HttpClient()
 		{
 
-			BaseAddress = new Uri("https://help.inventive.ru/api/"),
+			BaseAddress = new Uri("https://intraservice.ru/api/"),
 
 		};
 		
