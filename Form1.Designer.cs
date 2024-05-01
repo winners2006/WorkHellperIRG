@@ -433,7 +433,7 @@ namespace WorkHellperIRG
 		}
 
 		#endregion
-		private System.Windows.Forms.Button button1;
+		public System.Windows.Forms.Button button1;
 		private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.Panel panel3;
 		private System.Windows.Forms.Label label1;
@@ -452,13 +452,13 @@ namespace WorkHellperIRG
 		private System.Windows.Forms.Label label12;
 		private System.Windows.Forms.Label label14;
 		private System.Windows.Forms.Label label15;
-		private System.Windows.Forms.Button button2;
+		public System.Windows.Forms.Button button2;
 		private System.Windows.Forms.ListView listView1;
 		private System.Windows.Forms.ColumnHeader Id;
 		private System.Windows.Forms.ColumnHeader name;
 		private System.Windows.Forms.ColumnHeader DataEnd;
-		private System.Windows.Forms.Button button3;
-		private System.Windows.Forms.Button button4;
+		public System.Windows.Forms.Button button3;
+		public System.Windows.Forms.Button button4;
 		private Button button5;
 		private ListView listView2;
 		private ColumnHeader columnHeader1;
