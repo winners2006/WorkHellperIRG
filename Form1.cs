@@ -1,15 +1,5 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Globalization;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+
 using System.Windows.Forms;
 
 namespace WorkHellperIRG
@@ -20,9 +10,6 @@ namespace WorkHellperIRG
 		static string emailIS = Properties.Settings.Default.emailIS;
 		static string passwordIS = Properties.Settings.Default.passIS;
 		static string idUser = Properties.Settings.Default.userNameId;
-		string urlISTasksMyTasks;
-		string urlISTasksNewTasks;
-		string urlISTasksLineTasks;
 		int coutnTasksMyTasks = 0;
 		int coutnTasksNewTasks = 0;
 		int coutnTasksLineTasks = 0;
